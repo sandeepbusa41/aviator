@@ -1,0 +1,74 @@
+/* ── CSS VARIABLES ─────────────────────────────────────────────────── */
+:root {
+  --bg:          #060a0f;
+  --surface:     #0d1520;
+  --surface2:    #111c2d;
+  --surface3:    #152236;
+  --border:      #1e3050;
+  --border2:     #243a5e;
+  --accent:      #e63946;
+  --accent2:     #ff6b35;
+  --green:       #2ecc71;
+  --green-dark:  #27ae60;
+  --blue:        #3498db;
+  --yellow:      #f1c40f;
+  --orange:      #e67e22;
+  --text:        #e8f4fd;
+  --text-muted:  #5a7fa0;
+  --text-dim:    #8aa8c0;
+  --glow-red:    0 0 20px rgba(230, 57, 70, 0.5);
+  --glow-green:  0 0 20px rgba(46, 204, 113, 0.5);
+  --glow-orange: 0 0 20px rgba(230, 126, 34, 0.5);
+
+  --font-display: 'Orbitron', monospace;
+  --font-mono:    'Share Tech Mono', monospace;
+  --font-body:    'Rajdhani', sans-serif;
+
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+
+  --transition: 0.2s ease;
+}
+
+/* ── RESET ─────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+input {
+  outline: none;
+  font-family: inherit;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* ── SCROLLBAR ─────────────────────────────────────────────────────── */
+::-webkit-scrollbar        { width: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--border2); border-radius: 2px; }

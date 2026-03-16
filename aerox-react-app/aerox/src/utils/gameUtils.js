@@ -1,0 +1,47 @@
+/**
+ * Generates a random crash multiplier with a realistic house-edge distribution.
+ * ~30% crash ≤1.20x  |  ~25% 1.20–1.70x  |  ~20% 1.70–2.50x
+ * ~15% 2.50–5.00x    |  ~7%  5–15x        |  ~3%  15–65x
+ */
+export function generateCrashPoint() {
+  const r = Math.random();
+  if (r < 0.30) return +(1.00 + Math.random() * 0.20).toFixed(2);
+  if (r < 0.55) return +(1.20 + Math.random() * 0.50).toFixed(2);
+  if (r < 0.75) return +(1.70 + Math.random() * 0.80).toFixed(2);
+  if (r < 0.90) return +(2.50 + Math.random() * 2.50).toFixed(2);
+  if (r < 0.97) return +(5.00 + Math.random() * 10.0).toFixed(2);
+  return +(15.0 + Math.random() * 50.0).toFixed(2);
+}
+
+/** Map a multiplier value → canvas Y coordinate */
+export function multiplierToY(multiplier, crashAt, canvasHeight) {
+  const logM     = Math.log(Math.max(multiplier, 1));
+  const logCrash = Math.log(Math.max(crashAt, 1.1));
+  const progress = Math.min(logM / logCrash, 1);
+  return canvasHeight - progress * canvasHeight * 0.82 - canvasHeight * 0.05;
+}
+
+/** Map elapsed time → canvas X coordinate */
+export function elapsedToX(elapsed, roundDuration, canvasWidth) {
+  const progress = Math.min(elapsed / roundDuration, 1);
+  return canvasWidth * 0.05 + progress * canvasWidth * 0.88;
+}
+
+/** Compute the visual round duration based on crash point */
+export function calcRoundDuration(crashAt) {
+  const logCrash = Math.log(Math.max(crashAt, 1.01));
+  return Math.max(3000, logCrash * 8000);
+}
+
+/** Format a number with thousand separators */
+export function formatCoins(n) {
+  return Math.round(n).toLocaleString();
+}
+
+/** Return CSS class name for a crash chip based on value */
+export function chipClass(v) {
+  if (v < 1.5)  return 'chip--low';
+  if (v < 3.0)  return 'chip--mid';
+  if (v < 10.0) return 'chip--high';
+  return 'chip--mega';
+}
