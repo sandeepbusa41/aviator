@@ -13,11 +13,17 @@ export function generateCrashPoint() {
   return +(15.0 + Math.random() * 50.0).toFixed(2);
 }
 
-/** Map a multiplier value → canvas Y coordinate */
-export function multiplierToY(multiplier, crashAt, canvasHeight) {
+/**
+ * Map a multiplier value → canvas Y coordinate.
+ * Uses a FIXED reference point (100x) for Y-axis scaling.
+ * This ensures the curve always looks identical regardless of crash point.
+ * crashAt parameter is deprecated and ignored to prevent fairness issues.
+ */
+export function multiplierToY(multiplier, canvasHeight) {
+  const FIXED_MAX_MULTIPLIER = 100; // Fixed reference for Y-axis scaling
   const logM     = Math.log(Math.max(multiplier, 1));
-  const logCrash = Math.log(Math.max(crashAt, 1.1));
-  const progress = Math.min(logM / logCrash, 1);
+  const logMax   = Math.log(FIXED_MAX_MULTIPLIER);
+  const progress = Math.min(logM / logMax, 1);
   return canvasHeight - progress * canvasHeight * 0.82 - canvasHeight * 0.05;
 }
 
@@ -27,10 +33,13 @@ export function elapsedToX(elapsed, roundDuration, canvasWidth) {
   return canvasWidth * 0.05 + progress * canvasWidth * 0.88;
 }
 
-/** Compute the visual round duration based on crash point */
-export function calcRoundDuration(crashAt) {
-  const logCrash = Math.log(Math.max(crashAt, 1.01));
-  return Math.max(3000, logCrash * 8000);
+/**
+ * Fixed round duration independent of crash point.
+ * This prevents the animation from revealing the crash outcome.
+ * Using a fixed duration ensures all rounds have identical visual animation speed.
+ */
+export function calcRoundDuration() {
+  return 30000; // 30 seconds - consistent regardless of crash point
 }
 
 /** Format a number with thousand separators */

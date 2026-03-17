@@ -89,7 +89,7 @@ export function useGameEngine(initialSave) {
   const startCountdown = useCallback(() => {
     stopTimers();
     rCrashAt.current    = generateCrashPoint();
-    roundDurRef.current = calcRoundDuration(rCrashAt.current);
+    roundDurRef.current = calcRoundDuration();
     setPhase('countdown');
     setMultiplier(1.00); rMultiplier.current = 1.00;
     setPathPoints([]); rPathPoints.current = [];
@@ -121,16 +121,24 @@ export function useGameEngine(initialSave) {
       const dur      = roundDurRef.current;
       const progress = elapsed / dur;
       const crash    = rCrashAt.current;
-      const rawMult  = Math.exp(progress * Math.log(Math.max(crash, 1.01)));
+
+      // FIXED: Use exponential growth with fixed coefficient (0.06/sec)
+      // This is independent of crashPoint to prevent prediction
+      const elapsedSeconds = elapsed / 1000;
+      const rawMult  = Math.exp(0.06 * elapsedSeconds);
       const newMult  = Math.round(Math.max(1.00, rawMult) * 100) / 100;
       rMultiplier.current = newMult;
       setMultiplier(newMult);
 
       const W = window._aeroxCanvasW || 800;
       const H = window._aeroxCanvasH || 400;
+
+      // FIXED: Use fixed reference multiplier (100x) for Y-axis scaling
+      // This ensures consistent curve appearance regardless of crash point
+      const FIXED_MAX_MULTIPLIER = 100;
       const logM = Math.log(Math.max(newMult, 1));
-      const logCrash = Math.log(Math.max(crash, 1.1));
-      const yProg = Math.min(logM / logCrash, 1);
+      const logMax = Math.log(FIXED_MAX_MULTIPLIER);
+      const yProg = Math.min(logM / logMax, 1);
       const x = W * 0.05 + Math.min(progress, 1) * W * 0.88;
       const y = H - yProg * H * 0.82 - H * 0.05;
       if (rPathPoints.current.length === 0) rPathPoints.current = [{ x: W * 0.05, y: H * 0.95 }];
