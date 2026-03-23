@@ -138,12 +138,18 @@
   left: 18px;
 }
 
+.auto-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
 .auto-input {
   width: 80px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  padding: 5px 8px;
+  padding: 5px 24px 5px 8px;
   color: var(--text);
   font-family: var(--font-display);
   font-size: 0.78rem;
@@ -154,6 +160,17 @@
 
 .auto-input:focus {
   border-color: var(--accent);
+}
+
+.auto-input-suffix {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  pointer-events: none;
 }
 
 /* ── Action button ─────────────────── */

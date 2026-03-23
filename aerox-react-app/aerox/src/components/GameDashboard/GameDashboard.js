@@ -20,8 +20,9 @@ function GameDashboard({ user, save, onLogout }) {
       history:  engine.roundHistory,
       stats:    engine.stats,
       roundNum: engine.roundNum,
+      autoCashAt: engine.autoCashAt,
     });
-  }, [user, engine.balance, engine.roundHistory, engine.stats, engine.roundNum]);
+  }, [user, engine.balance, engine.roundHistory, engine.stats, engine.roundNum, engine.autoCashAt]);
 
   return (
     <div className="dashboard">

@@ -24,7 +24,7 @@ export function useGameEngine(initialSave) {
   const [cashedOutAt,setCashedOutAt] = useState(0);
 
   const [autoEnabled,setAutoEnabled] = useState(false);
-  const [autoCashAt,setAutoCashAt] = useState(2);
+  const [autoCashAt,setAutoCashAt] = useState(initialSave?.autoCashAt ?? 2.0);
 
   const [toasts,setToasts] = useState([]);
 
@@ -33,7 +33,7 @@ export function useGameEngine(initialSave) {
   const rBetAmount = useRef(0);
   const rCashedOut = useRef(false);
   const rAutoEnabled = useRef(false);
-  const rAutoCashAt = useRef(2);
+  const rAutoCashAt = useRef(initialSave?.autoCashAt ?? 2.0);
   const rRoundNum = useRef(roundNum);
 
   const rCrashAt = useRef(1);
@@ -87,6 +87,7 @@ export function useGameEngine(initialSave) {
     setCashedOutAt(m)
 
     setBalance(b=>{
+      // Add back the bet amount plus profit (bet is already deducted)
       const newBal=b+total
       rBalance.current=newBal
 
@@ -239,35 +240,28 @@ export function useGameEngine(initialSave) {
 
         // Record round to history and update stats
         if(didBet && !didCashOut){
-          // User lost - deduct bet from balance
-          setBalance(b=>{
-            const newBal=Math.max(0,b-bet)
-            rBalance.current=newBal
+          // User lost - bet already deducted when placed, just record it
+          setStats(s=>{
+            const ns={
+              wins:s.wins,
+              losses:s.losses+1,
+              net:s.net-bet
+            }
 
-            setStats(s=>{
-              const ns={
-                wins:s.wins,
-                losses:s.losses+1,
-                net:s.net-bet
-              }
+            setRoundHistory(h=>{
+              const nh=[{
+                round:rn,
+                crashAt:crash,
+                result:-bet,
+                cashedAt:null,
+                time:Date.now()
+              },...h]
 
-              setRoundHistory(h=>{
-                const nh=[{
-                  round:rn,
-                  crashAt:crash,
-                  result:-bet,
-                  cashedAt:null,
-                  time:Date.now()
-                },...h]
-
-                persist(newBal,nh,ns,rn)
-                return nh
-              })
-
-              return ns
+              persist(rBalance.current,nh,ns,rn)
+              return nh
             })
 
-            return newBal
+            return ns
           })
 
           pushToast(`CRASHED @ ${crash}x -${bet}`,'loss')
@@ -319,6 +313,13 @@ export function useGameEngine(initialSave) {
 
     rBetAmount.current=amount
     rBetPlaced.current=true
+
+    // Deduct bet amount from balance immediately
+    setBalance(b=>{
+      const newBal=b-amount
+      rBalance.current=newBal
+      return newBal
+    })
 
     pushToast(`Bet placed ${amount}`,'info')
 

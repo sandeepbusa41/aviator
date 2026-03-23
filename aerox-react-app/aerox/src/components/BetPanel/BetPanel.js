@@ -124,14 +124,30 @@ function BetPanel({
             role="switch"
             aria-checked={autoEnabled}
           />
-          <input
-            className="auto-input"
-            type="number"
-            min="1.10"
-            step="0.1"
-            value={autoCashAt}
-            onChange={e => setAutoCashAt(parseFloat(e.target.value) || 2.0)}
-          />
+          <div className="auto-input-wrap">
+            <input
+              className="auto-input"
+              type="number"
+              min="1.10"
+              step="0.1"
+              value={autoCashAt}
+              onChange={e => {
+                const val = e.target.value;
+                if (val === '' || val === null) {
+                  setAutoCashAt('');
+                } else {
+                  setAutoCashAt(parseFloat(val) || 2.0);
+                }
+              }}
+              onBlur={e => {
+                const val = parseFloat(e.target.value);
+                if (!val || val < 1.10) {
+                  setAutoCashAt(2.0);
+                }
+              }}
+            />
+            <span className="auto-input-suffix">x</span>
+          </div>
         </div>
       </div>
 
