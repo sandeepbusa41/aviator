@@ -257,3 +257,205 @@
 .active-info__value--profit {
   color: var(--yellow);
 }
+
+/* MOBILE RESPONSIVE STYLES */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .bet-panel {
+    padding: 12px;
+  }
+
+  .section-title {
+    font-size: 0.58rem;
+    margin-bottom: 10px;
+  }
+
+  .bet-input {
+    font-size: 0.9rem;
+    padding: 8px 48px 8px 12px;
+  }
+
+  .bet-input-suffix {
+    font-size: 0.55rem;
+    right: 8px;
+  }
+
+  .quick-bets {
+    gap: 4px;
+    margin-bottom: 6px;
+  }
+
+  .quick-bet-btn {
+    font-size: 0.65rem;
+    padding: 5px 3px;
+  }
+
+  .auto-row {
+    margin: 8px 0 10px;
+  }
+
+  .auto-label {
+    font-size: 0.65rem;
+  }
+
+  .auto-input {
+    width: 70px;
+  }
+
+ .auto-input-wrap {
+    width: 70px;
+  }
+
+  .action-buttons {
+    gap: 6px;
+  }
+
+  .btn-place,
+  .btn-cashout {
+    font-size: 0.8rem;
+  }
+
+  .active-info__cell {
+    padding: 6px 8px;
+  }
+
+  .active-info__label {
+    font-size: 0.55rem;
+    margin-bottom: 1px;
+  }
+
+  .active-info__value {
+    font-size: 0.78rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .bet-panel {
+    padding: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-title {
+    font-size: 0.55rem;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .bet-input-wrap {
+    margin-bottom: 8px;
+  }
+
+  .bet-input {
+    font-size: 0.85rem;
+    padding: 8px 44px 8px 10px;
+  }
+
+  .bet-input-suffix {
+    font-size: 0.5rem;
+    right: 6px;
+  }
+
+  .quick-bets {
+    gap: 3px;
+    margin-bottom: 6px;
+  }
+
+  .quick-bet-btn {
+    font-size: 0.6rem;
+    padding: 5px 2px;
+    letter-spacing: 0px;
+  }
+
+  .auto-row {
+    gap: 8px;
+    margin: 6px 0 8px;
+  }
+
+  .auto-label {
+    font-size: 0.6rem;
+    flex: 0 0 auto;
+  }
+
+  .auto-input-wrap {
+    width: 65px;
+  }
+
+  .auto-input {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+
+  .action-buttons {
+    gap: 4px;
+    margin-top: 8px;
+  }
+
+  .btn-place,
+  .btn-cashout {
+    flex: 1;
+    padding: 8px 6px;
+    font-size: 0.75rem;
+    letter-spacing: 0px;
+  }
+
+  .active-info {
+    padding: 8px 0;
+    gap: 6px;
+  }
+
+  .active-info__cell {
+    padding: 4px 6px;
+  }
+
+  .active-info__label {
+    font-size: 0.5rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 1px;
+  }
+
+  .active-info__value {
+    font-size: 0.75rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .bet-panel {
+    padding: 8px;
+  }
+
+  .section-title {
+    font-size: 0.5rem;
+    margin-bottom: 6px;
+  }
+
+  .bet-input {
+    font-size: 16px; /* Prevent iOS zoom */
+    padding: 8px 40px 8px 10px;
+  }
+
+  .quick-bet-btn {
+    font-size: 0.55rem;
+    padding: 4px 2px;
+  }
+
+  .auto-input-wrap {
+    width: 60px;
+  }
+
+  .auto-input {
+    font-size: 0.75rem;
+  }
+
+  .btn-place,
+  .btn-cashout {
+    padding: 6px 4px;
+    font-size: 0.7rem;
+  }
+
+  .active-info__value {
+    font-size: 0.7rem;
+  }
+}

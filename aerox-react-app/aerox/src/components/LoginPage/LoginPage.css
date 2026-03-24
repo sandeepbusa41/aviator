@@ -217,3 +217,147 @@
   font-family: var(--font-mono);
   font-size: 0.75rem;
 }
+
+/* MOBILE RESPONSIVE STYLES */
+
+/* Tablets and below */
+@media (max-width: 768px) {
+  .login-card {
+    width: 90%;
+    max-width: 420px;
+    padding: 40px 32px;
+  }
+
+  .login-logo__plane {
+    font-size: 2.2rem;
+  }
+
+  .login-logo__brand {
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+
+  .login-logo__sub {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+  }
+}
+
+/* Mobile phones - medium */
+@media (max-width: 600px) {
+  .login-screen {
+    padding: 16px;
+    justify-content: flex-start;
+    padding-top: 40px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 32px 24px;
+    border-radius: var(--radius-md);
+  }
+
+  .login-logo {
+    margin-bottom: 20px;
+  }
+
+  .login-logo__plane {
+    font-size: 1.8rem;
+    margin-bottom: 6px;
+  }
+
+  .login-logo__brand {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+  }
+
+  .login-logo__sub {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    margin-top: 4px;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-label {
+    font-size: 0.65rem;
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
+
+  .password-requirements {
+    margin-top: 8px;
+    padding: 8px;
+    gap: 4px;
+  }
+
+  .requirement {
+    font-size: 0.7rem;
+    gap: 6px;
+  }
+
+  .requirement__icon {
+    min-width: 14px;
+  }
+
+  .password-error-summary {
+    font-size: 0.65rem;
+    margin-top: 4px;
+  }
+
+  .btn-launch,
+  .btn-forgot {
+    padding: 12px;
+    font-size: 0.85rem;
+    margin-top: 6px;
+  }
+
+  .login-note {
+    margin-top: 16px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .login-screen {
+    padding: 12px;
+    padding-top: 30px;
+  }
+
+  .login-card {
+    padding: 24px 16px;
+  }
+
+  .login-logo {
+    margin-bottom: 16px;
+  }
+
+  .login-logo__plane {
+    font-size: 1.6rem;
+  }
+
+  .login-logo__brand {
+    font-size: 1.4rem;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-input {
+    padding: 8px 10px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .password-requirements {
+    padding: 6px;
+  }
+}

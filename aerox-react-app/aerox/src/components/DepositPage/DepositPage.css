@@ -223,3 +223,181 @@
   font-size: 0.7rem;
   letter-spacing: 1px;
 }
+
+/* MOBILE RESPONSIVE STYLES */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .deposit-page {
+    padding: 16px;
+    justify-content: flex-start;
+    padding-top: 60px;
+  }
+
+  .deposit-card {
+    max-width: 100%;
+    padding: 32px 24px;
+    width: 90%;
+  }
+
+  .btn-close {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    top: 16px;
+    left: 16px;
+  }
+
+  .deposit-title {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+  }
+
+  .balance-amount {
+    font-size: 1.6rem;
+  }
+
+  .quick-amounts {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .quick-amt-btn {
+    padding: 8px;
+    font-size: 0.7rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .deposit-page {
+    padding: 12px;
+    padding-top: 50px;
+    min-height: 100vh;
+  }
+
+  .deposit-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .btn-close {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+    top: 12px;
+    left: 12px;
+  }
+
+  .deposit-header {
+    margin-bottom: 20px;
+  }
+
+  .deposit-title {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .balance-label {
+    font-size: 0.65rem;
+  }
+
+  .balance-amount {
+    font-size: 1.4rem;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-label {
+    font-size: 0.65rem;
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
+
+  .amount-suffix {
+    font-size: 0.55rem;
+    right: 8px;
+  }
+
+  .quick-amounts {
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .quick-amt-btn {
+    padding: 8px;
+    font-size: 0.65rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .form-error,
+  .form-success {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    margin: 10px 0;
+  }
+
+  .btn-deposit {
+    padding: 12px;
+    font-size: 0.85rem;
+    margin-top: 6px;
+  }
+
+  .deposit-note {
+    margin-top: 12px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .deposit-page {
+    padding: 8px;
+    padding-top: 40px;
+  }
+
+  .deposit-card {
+    padding: 18px 14px;
+  }
+
+  .btn-close {
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+    top: 10px;
+    left: 10px;
+  }
+
+  .deposit-title {
+    font-size: 1rem;
+  }
+
+  .balance-amount {
+    font-size: 1.2rem;
+  }
+
+  .form-input {
+    padding: 8px 10px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .quick-amounts {
+    gap: 5px;
+  }
+
+  .quick-amt-btn {
+    padding: 6px;
+    font-size: 0.6rem;
+  }
+}

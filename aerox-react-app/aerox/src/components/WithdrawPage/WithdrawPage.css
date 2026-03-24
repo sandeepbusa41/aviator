@@ -329,6 +329,196 @@
   50% { opacity: 0.6; }
 }
 
+/* MOBILE RESPONSIVE STYLES */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .withdraw-page {
+    padding: 16px;
+    justify-content: flex-start;
+    padding-top: 60px;
+  }
+
+  .withdraw-card {
+    max-width: 100%;
+    padding: 32px 24px;
+    width: 90%;
+  }
+
+  .btn-close {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+    top: 16px;
+    left: 16px;
+  }
+
+  .withdraw-title {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+  }
+
+  .balance-amount {
+    font-size: 1.6rem;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .withdraw-page {
+    padding: 12px;
+    padding-top: 50px;
+    min-height: 100vh;
+  }
+
+  .withdraw-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 24px 18px;
+    border-radius: var(--radius-md);
+  }
+
+  .btn-close {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+    top: 12px;
+    left: 12px;
+  }
+
+  .withdraw-header {
+    margin-bottom: 20px;
+  }
+
+  .withdraw-title {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+
+  .balance-label {
+    font-size: 0.65rem;
+  }
+
+  .balance-amount {
+    font-size: 1.4rem;
+  }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-label {
+    font-size: 0.65rem;
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    padding: 10px 12px;
+    font-size: 1rem;
+  }
+
+  .amount-suffix {
+    font-size: 0.55rem;
+    right: 8px;
+  }
+
+  .upi-hint {
+    font-size: 0.6rem;
+    margin-top: 3px;
+  }
+
+  .form-error {
+    font-size: 0.7rem;
+    padding: 6px 10px;
+    margin: 10px 0;
+  }
+
+  .btn-withdraw {
+    padding: 12px;
+    font-size: 0.85rem;
+    margin-top: 6px;
+  }
+
+  .withdraw-note {
+    margin-top: 12px;
+    font-size: 0.65rem;
+  }
+
+  .processing-container {
+    padding: 24px 16px;
+  }
+
+  .processing-icon {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+  }
+
+  .processing-title {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .processing-message {
+    font-size: 0.8rem;
+  }
+
+  .processing-info {
+    padding: 12px;
+  }
+
+  .info-text {
+    font-size: 0.7rem;
+    margin: 6px 0;
+  }
+
+  .processing-note {
+    font-size: 0.7rem;
+    margin-top: 12px;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .withdraw-page {
+    padding: 8px;
+    padding-top: 40px;
+  }
+
+  .withdraw-card {
+    padding: 18px 14px;
+  }
+
+  .btn-close {
+    width: 22px;
+    height: 22px;
+    font-size: 0.8rem;
+    top: 10px;
+    left: 10px;
+  }
+
+  .withdraw-title {
+    font-size: 1rem;
+  }
+
+  .balance-amount {
+    font-size: 1.2rem;
+  }
+
+  .form-input {
+    padding: 8px 10px;
+    font-size: 16px; /* Prevent zoom on iOS */
+  }
+
+  .processing-icon {
+    font-size: 2rem;
+  }
+
+  .processing-title {
+    font-size: 1rem;
+  }
+}
+
 .timer-section {
   padding: 16px;
   background: rgba(30, 48, 80, 0.3);

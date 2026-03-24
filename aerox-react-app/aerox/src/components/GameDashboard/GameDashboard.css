@@ -27,3 +27,46 @@
     width: 260px;
   }
 }
+
+/* Tablets - hide sidebar off-screen, show game full width */
+@media (max-width: 768px) {
+  .dashboard__main {
+    flex-direction: column;
+  }
+
+  .dashboard__side {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    height: auto;
+    max-height: 35vh;
+    overflow-y: auto;
+  }
+}
+
+/* Mobile phones */
+@media (max-width: 600px) {
+  .dashboard {
+    height: 100vh;
+  }
+
+  .dashboard__main {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .dashboard__side {
+    width: 100%;
+    height: auto;
+    max-height: 40vh;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .dashboard__side {
+    max-height: 50vh;
+  }
+}
