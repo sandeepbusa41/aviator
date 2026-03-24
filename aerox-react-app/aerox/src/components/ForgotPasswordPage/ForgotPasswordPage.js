@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import './LoginPage.css';
-import { validatePassword, verifyLogin, saveCredentials } from '../../utils/auth';
+import './ForgotPasswordPage.css';
+import { validatePassword, loadAllCredentials, resetPassword } from '../../utils/auth';
 
-function LoginPage({ onLogin, onForgotPassword }) {
+function ForgotPasswordPage({ onBack, onReset }) {
   const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [passwordChecks, setPasswordChecks] = useState({
     hasLength: false,
     hasNumber: false,
@@ -14,39 +16,66 @@ function LoginPage({ onLogin, onForgotPassword }) {
 
   // Update password validation checks as user types
   useEffect(() => {
-    if (password) {
-      const validation = validatePassword(password);
+    if (newPassword) {
+      const validation = validatePassword(newPassword);
       setPasswordChecks(validation.checks);
     } else {
       setPasswordChecks({ hasLength: false, hasNumber: false, hasLetter: false });
     }
-  }, [password]);
+  }, [newPassword]);
 
-  const handleSubmit = () => {
+  const handleResetPassword = () => {
+    setError('');
+    setSuccess('');
+
     if (!username.trim()) {
       setError('Enter your callsign');
       return;
     }
 
-    // Verify login credentials
-    const verification = verifyLogin(username.trim(), password);
-
-    if (!verification.success) {
-      setError(verification.message);
+    // Check if username exists
+    const allCreds = loadAllCredentials();
+    if (!allCreds.hasOwnProperty(username.trim())) {
+      setError('Pilot name not found');
       return;
     }
 
-    // For first-time users, save the credentials before login
-    if (verification.type === 'new_user') {
-      saveCredentials(username.trim(), password);
+    if (!newPassword) {
+      setError('Enter new password');
+      return;
     }
 
-    setError('');
-    onLogin(username.trim(), password);
+    if (!confirmPassword) {
+      setError('Confirm your new password');
+      return;
+    }
+
+    if (newPassword !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    // Validate password requirements
+    const validation = validatePassword(newPassword);
+    if (!validation.valid) {
+      setError('Password must have: 4+ characters, 1 number, 1 letter');
+      return;
+    }
+
+    // Reset the password
+    const result = resetPassword(username.trim(), newPassword);
+    if (result.success) {
+      setSuccess('Password reset successful! Redirecting...');
+      setTimeout(() => {
+        onReset(username.trim());
+      }, 2000);
+    } else {
+      setError(result.message || 'Failed to reset password');
+    }
   };
 
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') handleSubmit();
+    if (e.key === 'Enter') handleResetPassword();
   };
 
   return (
@@ -59,37 +88,37 @@ function LoginPage({ onLogin, onForgotPassword }) {
         <div className="login-logo">
           <span className="login-logo__plane">✈️</span>
           <h1 className="login-logo__brand">AEROX</h1>
-          <p className="login-logo__sub">Virtual Crash Game</p>
+          <p className="login-logo__sub">Reset Password</p>
         </div>
 
         <div className="form-group">
-          <label className="form-label" htmlFor="username">Pilot Name</label>
+          <label className="form-label" htmlFor="reset-username">Pilot Name</label>
           <input
-            id="username"
+            id="reset-username"
             className="form-input"
             type="text"
             placeholder="Enter your callsign"
             value={username}
             onChange={e => setUsername(e.target.value)}
-            onKeyDown={e => { if (e.key === 'Enter') document.getElementById('password').focus(); }}
+            onKeyDown={e => { if (e.key === 'Enter') document.getElementById('reset-password').focus(); }}
             autoComplete="off"
           />
         </div>
 
         <div className="form-group">
-          <label className="form-label" htmlFor="password">Password</label>
+          <label className="form-label" htmlFor="reset-password">New Password</label>
           <input
-            id="password"
+            id="reset-password"
             className="form-input"
             type="password"
             placeholder="••••••••"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            onKeyDown={handleKeyDown}
+            value={newPassword}
+            onChange={e => setNewPassword(e.target.value)}
+            onKeyDown={e => { if (e.key === 'Enter') document.getElementById('reset-confirm').focus(); }}
           />
 
           {/* Password requirements checklist */}
-          {password && (
+          {newPassword && (
             <>
               <div className="password-requirements">
                 <div className={`requirement ${passwordChecks.hasLength ? 'requirement--met' : ''}`}>
@@ -120,16 +149,30 @@ function LoginPage({ onLogin, onForgotPassword }) {
               ) : null}
             </>
           )}
-
-          {error && <p className="form-error">{error}</p>}
         </div>
 
-        <button className="btn-launch" onClick={handleSubmit}>
-          TAKE OFF →
+        <div className="form-group">
+          <label className="form-label" htmlFor="reset-confirm">Confirm Password</label>
+          <input
+            id="reset-confirm"
+            className="form-input"
+            type="password"
+            placeholder="••••••••"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+        </div>
+
+        {error && <p className="form-error">{error}</p>}
+        {success && <p className="form-success">{success}</p>}
+
+        <button className="btn-reset" onClick={handleResetPassword}>
+          RESET PASSWORD →
         </button>
 
-        <button className="btn-forgot" onClick={onForgotPassword}>
-          Forgot Password?
+        <button className="btn-back" onClick={onBack}>
+          ← BACK TO LOGIN
         </button>
 
         <p className="login-note">🎰 Virtual currency only · No real money</p>
@@ -138,4 +181,4 @@ function LoginPage({ onLogin, onForgotPassword }) {
   );
 }
 
-export default LoginPage;
+export default ForgotPasswordPage;

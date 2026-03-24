@@ -21,7 +21,7 @@ function GameDashboard({ user, save, onLogout }) {
       stats:    engine.stats,
       roundNum: engine.roundNum,
       autoCashAt: engine.autoCashAt,
-    });
+    }, user);
   }, [user, engine.balance, engine.roundHistory, engine.stats, engine.roundNum, engine.autoCashAt]);
 
   return (
