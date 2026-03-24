@@ -14,14 +14,19 @@ function RoundHistoryPanel({ history, stats }) {
           let rowClass = 'history-row';
           let resultText = '—';
 
+          // Color based on win/loss (profit >= 0 = win/green, loss < 0 = loss/red)
+          if (r.result >= 0) {
+            rowClass += ' history-row--win'; // Green for wins
+          } else {
+            rowClass += ' history-row--loss'; // Red for losses
+          }
+
           if (r.result >= 0) {
             // Win: show total amount received (bet + profit)
-            rowClass += ' history-row--win';
             const total = r.betAmount + r.result;
             resultText = `+${formatCoins(total)}`;
           } else {
             // Loss: show the loss amount
-            rowClass += ' history-row--loss';
             resultText = formatCoins(r.result);
           }
 

@@ -52,11 +52,6 @@
   border-color: rgba(230, 57, 70, 0.15);
 }
 
-.history-row--skipped {
-  background: rgba(90, 127, 160, 0.06);
-  border-color: rgba(90, 127, 160, 0.12);
-}
-
 .hr-round {
   font-family: var(--font-mono);
   font-size: 0.6rem;
@@ -75,7 +70,6 @@
 
 .history-row--win    .hr-crash { color: var(--green); }
 .history-row--loss   .hr-crash { color: var(--accent); }
-.history-row--skipped .hr-crash { color: var(--text-muted); }
 
 .hr-cashed {
   font-family: var(--font-mono);
@@ -95,7 +89,6 @@
 
 .history-row--win    .hr-result { color: var(--green); }
 .history-row--loss   .hr-result { color: var(--accent); }
-.history-row--skipped .hr-result { color: var(--text-muted); }
 
 /* ── Stats strip ───────────────────── */
 .stats-strip {
