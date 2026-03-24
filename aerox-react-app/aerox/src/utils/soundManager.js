@@ -7,6 +7,8 @@ class SoundManager {
     this.crashAudio = null;
     this.isInitialized = false;
     this.isMuted = false;
+    this.gameSoundEnabled = true;
+    this.appMusicEnabled = true;
   }
 
   // Initialize audio elements
@@ -22,6 +24,9 @@ class SoundManager {
       this.crashAudio.loop = false;
       this.crashAudio.volume = 0.7;
 
+      // Load saved settings
+      this.loadSettings();
+
       this.isInitialized = true;
       return true;
     } catch (error) {
@@ -31,9 +36,37 @@ class SoundManager {
     }
   }
 
+  // Load settings from localStorage
+  loadSettings() {
+    try {
+      const savedSettings = localStorage.getItem('aerox_sound_settings');
+      if (savedSettings) {
+        const settings = JSON.parse(savedSettings);
+        this.gameSoundEnabled = settings.gameSoundEnabled !== false;
+        this.appMusicEnabled = settings.appMusicEnabled !== false;
+      }
+    } catch (_) {
+      // Use defaults
+    }
+  }
+
+  // Update settings
+  updateSettings(settings) {
+    if (settings.gameSoundEnabled !== undefined) {
+      this.gameSoundEnabled = settings.gameSoundEnabled;
+    }
+    if (settings.appMusicEnabled !== undefined) {
+      this.appMusicEnabled = settings.appMusicEnabled;
+    }
+    // Stop sounds if they're being disabled
+    if (!this.gameSoundEnabled) {
+      this.stopAirplaneSound();
+    }
+  }
+
   // Play airplane flying sound (starts looping)
   playAirplaneSound() {
-    if (!this.isInitialized || this.isMuted) {
+    if (!this.isInitialized || this.isMuted || !this.gameSoundEnabled) {
       return;
     }
 
@@ -66,7 +99,7 @@ class SoundManager {
 
   // Play crash sound (one-shot)
   playCrashSound() {
-    if (!this.isInitialized || this.isMuted) {
+    if (!this.isInitialized || this.isMuted || !this.gameSoundEnabled) {
       return;
     }
 

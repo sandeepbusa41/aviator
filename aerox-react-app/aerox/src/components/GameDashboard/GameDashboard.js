@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './GameDashboard.css';
 import { useGameEngine } from '../../hooks/useGameEngine';
 import { saveToStorage, loadFromStorage, processPendingWithdrawals } from '../../utils/storage';
+import soundManager from '../../utils/soundManager';
 import Header from '../Header/Header';
 import HistoryBar from '../HistoryBar/HistoryBar';
 import GameCanvas from '../GameCanvas/GameCanvas';
@@ -11,6 +12,7 @@ import ToastContainer from '../ToastContainer/ToastContainer';
 import DepositPage from '../DepositPage/DepositPage';
 import WithdrawPage from '../WithdrawPage/WithdrawPage';
 import TransactionHistoryPage from '../TransactionHistoryPage/TransactionHistoryPage';
+import SettingsModal from '../SettingsModal/SettingsModal';
 import { formatCoins } from '../../utils/gameUtils';
 
 function GameDashboard({ user, save, onLogout }) {
@@ -19,6 +21,7 @@ function GameDashboard({ user, save, onLogout }) {
   const [balance, setBalance] = useState(engine.balance);
   const [toasts, setToasts] = useState([]);
   const [transactionRefresh, setTransactionRefresh] = useState(0); // Trigger to refresh transactions
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   // On mount, process pending withdrawals and load fresh balance from storage
   useEffect(() => {
@@ -81,6 +84,14 @@ function GameDashboard({ user, save, onLogout }) {
     setMode('game');
   };
 
+  const handleSettingsChange = (settings) => {
+    soundManager.updateSettings(settings);
+    // Resume airplane sound if enabling during active flying phase
+    if (settings.gameSoundEnabled && engine.phase === 'flying') {
+      soundManager.playAirplaneSound();
+    }
+  };
+
   // Render based on mode
   if (mode === 'deposit') {
     return (
@@ -92,6 +103,7 @@ function GameDashboard({ user, save, onLogout }) {
           onDeposit={() => setMode('deposit')}
           onWithdraw={() => setMode('withdraw')}
           onTransactions={() => setMode('transactions')}
+          onSettings={() => setSettingsOpen(true)}
         />
         <DepositPage
           user={user}
@@ -101,6 +113,13 @@ function GameDashboard({ user, save, onLogout }) {
           onShowToast={showToast}
         />
         <ToastContainer toasts={toasts} />
+        <SettingsModal
+          isOpen={settingsOpen}
+          onClose={() => setSettingsOpen(false)}
+          onSettingsChange={handleSettingsChange}
+          user={user}
+          onLogout={onLogout}
+        />
       </div>
     );
   }
@@ -115,6 +134,7 @@ function GameDashboard({ user, save, onLogout }) {
           onDeposit={() => setMode('deposit')}
           onWithdraw={() => setMode('withdraw')}
           onTransactions={() => setMode('transactions')}
+          onSettings={() => setSettingsOpen(true)}
         />
         <WithdrawPage
           user={user}
@@ -124,6 +144,13 @@ function GameDashboard({ user, save, onLogout }) {
           onShowToast={showToast}
         />
         <ToastContainer toasts={toasts} />
+        <SettingsModal
+          isOpen={settingsOpen}
+          onClose={() => setSettingsOpen(false)}
+          onSettingsChange={handleSettingsChange}
+          user={user}
+          onLogout={onLogout}
+        />
       </div>
     );
   }
@@ -138,6 +165,7 @@ function GameDashboard({ user, save, onLogout }) {
           onDeposit={() => setMode('deposit')}
           onWithdraw={() => setMode('withdraw')}
           onTransactions={() => setMode('transactions')}
+          onSettings={() => setSettingsOpen(true)}
         />
         <TransactionHistoryPage
           user={user}
@@ -145,6 +173,13 @@ function GameDashboard({ user, save, onLogout }) {
           transactionRefresh={transactionRefresh}
         />
         <ToastContainer toasts={toasts} />
+        <SettingsModal
+          isOpen={settingsOpen}
+          onClose={() => setSettingsOpen(false)}
+          onSettingsChange={handleSettingsChange}
+          user={user}
+          onLogout={onLogout}
+        />
       </div>
     );
   }
@@ -159,6 +194,7 @@ function GameDashboard({ user, save, onLogout }) {
         onDeposit={() => setMode('deposit')}
         onWithdraw={() => setMode('withdraw')}
         onTransactions={() => setMode('transactions')}
+        onSettings={() => setSettingsOpen(true)}
       />
 
       <HistoryBar history={engine.roundHistory} />
@@ -197,6 +233,13 @@ function GameDashboard({ user, save, onLogout }) {
       </div>
 
       <ToastContainer toasts={toasts} />
+      <SettingsModal
+        isOpen={settingsOpen}
+        onClose={() => setSettingsOpen(false)}
+        onSettingsChange={handleSettingsChange}
+        user={user}
+        onLogout={onLogout}
+      />
     </div>
   );
 }

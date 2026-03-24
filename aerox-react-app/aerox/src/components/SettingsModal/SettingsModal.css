@@ -1,0 +1,349 @@
+/* Settings Modal Overlay */
+.settings-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Settings Modal */
+.settings-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(30, 48, 80, 0.4);
+  width: 90%;
+  max-width: 420px;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Modal Header */
+.settings-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.settings-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text);
+  margin: 0;
+}
+
+.settings-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+}
+
+.settings-close:hover {
+  color: var(--accent);
+  background: rgba(230, 57, 70, 0.1);
+}
+
+/* Modal Content */
+.settings-content {
+  padding: 24px;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+/* Settings Section */
+.settings-section {
+  margin-bottom: 20px;
+}
+
+.settings-section-title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 16px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Settings Item */
+.settings-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  gap: 16px;
+}
+
+.settings-item-info {
+  flex: 1;
+}
+
+.settings-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+
+.settings-description {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.toggle-input {
+  display: none;
+}
+
+.toggle-label {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  transition: background var(--transition), border-color var(--transition);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+}
+
+.toggle-input:checked + .toggle-label {
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.toggle-knob {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.25s ease-out;
+  left: 2px;
+  top: 2px;
+}
+
+.toggle-input:checked + .toggle-label .toggle-knob {
+  transform: translateX(22px);
+}
+
+/* Modal Footer */
+.settings-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 20px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-close-settings {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.btn-close-settings:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* Account section */
+.account-info {
+  padding: 12px;
+  background: rgba(30, 48, 80, 0.2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 12px;
+}
+
+.account-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 0 4px 0;
+}
+
+.account-username {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+}
+
+.btn-logout-modal {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.btn-logout-modal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+}
+
+.btn-logout-modal:active {
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .settings-modal {
+    max-width: 95%;
+  }
+
+  .settings-header {
+    padding: 16px;
+  }
+
+  .settings-title {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+  }
+
+  .settings-content {
+    padding: 16px;
+  }
+
+  .settings-item {
+    padding: 10px 0;
+  }
+
+  .settings-label {
+    font-size: 0.85rem;
+  }
+
+  .settings-description {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .settings-modal {
+    max-width: 100%;
+    margin: 16px;
+    border-radius: var(--radius-md);
+  }
+
+  .settings-header {
+    padding: 12px 16px;
+  }
+
+  .settings-title {
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+  }
+
+  .settings-close {
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+  }
+
+  .settings-content {
+    padding: 12px 16px;
+  }
+
+  .settings-section-title {
+    font-size: 0.7rem;
+  }
+
+  .settings-item {
+    padding: 8px 0;
+    gap: 12px;
+  }
+
+  .settings-label {
+    font-size: 0.8rem;
+  }
+
+  .settings-description {
+    font-size: 0.6rem;
+  }
+
+  .toggle-switch {
+    width: 44px;
+    height: 26px;
+  }
+
+  .toggle-knob {
+    width: 20px;
+    height: 20px;
+  }
+
+  .toggle-input:checked + .toggle-label .toggle-knob {
+    transform: translateX(18px);
+  }
+}
