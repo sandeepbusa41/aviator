@@ -10,17 +10,17 @@ function RoundHistoryPanel({ history, stats }) {
       <p className="section-title">Round History</p>
 
       <div className="history-list">
-        {history.slice(0, 40).map((r, i) => {
+        {history.filter(r => r.result !== null).slice(0, 40).map((r, i) => {
           let rowClass = 'history-row';
           let resultText = '—';
 
-          if (r.result === null || r.result === undefined) {
-            rowClass += ' history-row--skipped';
-            resultText = 'No bet';
-          } else if (r.result >= 0) {
+          if (r.result >= 0) {
+            // Win: show total amount received (bet + profit)
             rowClass += ' history-row--win';
-            resultText = `+${formatCoins(r.result)}`;
+            const total = r.betAmount + r.result;
+            resultText = `+${formatCoins(total)}`;
           } else {
+            // Loss: show the loss amount
             rowClass += ' history-row--loss';
             resultText = formatCoins(r.result);
           }
@@ -37,7 +37,7 @@ function RoundHistoryPanel({ history, stats }) {
           );
         })}
 
-        {history.length === 0 && (
+        {history.filter(r => r.result !== null).length === 0 && (
           <p className="history-empty">No rounds yet</p>
         )}
       </div>

@@ -40,6 +40,7 @@ export function useGameEngine(initialSave) {
   const rCrashAt = useRef(1);
   const rMultiplier = useRef(1);
   const rPathPoints = useRef([]);
+  const rCashedOutAt = useRef(0);
 
   const tickHandle = useRef(null);
   const cdHandle = useRef(null);
@@ -84,13 +85,11 @@ export function useGameEngine(initialSave) {
     const bet=rBetAmount.current
     const profit=Math.round(bet*m-bet)
     const total=Math.round(bet*m)
-    const crash=rCrashAt.current
-    const rn=rRoundNum.current
 
+    rCashedOutAt.current=m
     setCashedOutAt(m)
 
     setBalance(b=>{
-      // Add back the bet amount plus profit (bet is already deducted)
       const newBal=b+total
       rBalance.current=newBal
 
@@ -100,20 +99,6 @@ export function useGameEngine(initialSave) {
           losses:s.losses,
           net:s.net+profit
         }
-
-        setRoundHistory(h=>{
-          const nh=[{
-            round:rn,
-            crashAt:crash,
-            result:profit,
-            cashedAt:m,
-            time:Date.now()
-          },...h]
-
-          persist(newBal,nh,ns,rn)
-          return nh
-        })
-
         return ns
       })
 
@@ -122,7 +107,7 @@ export function useGameEngine(initialSave) {
 
     pushToast(`CASHED OUT @ ${m.toFixed(2)}x +${profit}`,'win')
 
-  },[pushToast,persist])
+  },[pushToast])
 
 
   const startCountdown = useCallback(()=>{
@@ -146,6 +131,7 @@ export function useGameEngine(initialSave) {
     rCashedOut.current=false
 
     setCashedOutAt(0)
+    rCashedOutAt.current=0
 
     const start=Date.now()
 
@@ -261,6 +247,7 @@ export function useGameEngine(initialSave) {
                 crashAt:crash,
                 result:-bet,
                 cashedAt:null,
+                betAmount:bet,
                 time:Date.now()
               },...h]
 
@@ -273,15 +260,34 @@ export function useGameEngine(initialSave) {
 
           pushToast(`CRASHED @ ${crash}x -${bet}`,'loss')
 
-        } else if(!didBet){
-          // No bet placed - just record round
-          setRoundHistory(h=>[{
-            round:rn,
-            crashAt:crash,
-            result:null,
-            cashedAt:null,
-            time:Date.now()
-          },...h])
+        } else if(didBet && didCashOut){
+          // User cashed out - record this with the final crash multiplier
+          const cashedAtMult = rCashedOutAt.current
+          const profit = Math.round(bet*cashedAtMult-bet)
+
+          setStats(s=>{
+            const ns={
+              wins:s.wins,
+              losses:s.losses,
+              net:s.net
+            }
+
+            setRoundHistory(h=>{
+              const nh=[{
+                round:rn,
+                crashAt:crash,
+                result:profit,
+                cashedAt:cashedAtMult,
+                betAmount:bet,
+                time:Date.now()
+              },...h]
+
+              persist(rBalance.current,nh,ns,rn)
+              return nh
+            })
+
+            return ns
+          })
         }
 
         cdHandle.current=setTimeout(()=>{
