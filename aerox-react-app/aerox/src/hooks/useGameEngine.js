@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { generateCrashPoint, calcRoundDuration } from '../utils/gameUtils';
 import { saveToStorage } from '../utils/storage';
+import soundManager from '../utils/soundManager';
 
 const STARTING_BALANCE = 10000;
 const COUNTDOWN_MS = 5000;
@@ -76,6 +77,8 @@ export function useGameEngine(initialSave) {
 
     rCashedOut.current=true
     setCashedOut(true)
+
+    soundManager.stopAirplaneSound()
 
     const m=rMultiplier.current
     const bet=rBetAmount.current
@@ -171,6 +174,7 @@ export function useGameEngine(initialSave) {
     stopTimers()
 
     setPhase('flying')
+    soundManager.playAirplaneSound()
 
     setPathPoints([])
     rPathPoints.current=[]
@@ -231,6 +235,9 @@ export function useGameEngine(initialSave) {
 
         clearInterval(tickHandle.current)
 
+        soundManager.stopAirplaneSound()
+        soundManager.playCrashSound()
+
         const didBet = rBetPlaced.current;
         const didCashOut = rCashedOut.current;
         const bet = rBetAmount.current;
@@ -289,6 +296,7 @@ export function useGameEngine(initialSave) {
 
 
   useEffect(()=>{
+    soundManager.initialize();
     startCountdown()
     return ()=>stopTimers()
   },[])
