@@ -100,10 +100,12 @@ function GameDashboard({ user, save, onLogout }) {
           user={user}
           balance={balance}
           onLogout={onLogout}
+          onGame={() => setMode('game')}
           onDeposit={() => setMode('deposit')}
           onWithdraw={() => setMode('withdraw')}
           onTransactions={() => setMode('transactions')}
           onSettings={() => setSettingsOpen(true)}
+          activePage="deposit"
         />
         <DepositPage
           user={user}
@@ -131,10 +133,12 @@ function GameDashboard({ user, save, onLogout }) {
           user={user}
           balance={balance}
           onLogout={onLogout}
+          onGame={() => setMode('game')}
           onDeposit={() => setMode('deposit')}
           onWithdraw={() => setMode('withdraw')}
           onTransactions={() => setMode('transactions')}
           onSettings={() => setSettingsOpen(true)}
+          activePage="withdraw"
         />
         <WithdrawPage
           user={user}
@@ -162,10 +166,12 @@ function GameDashboard({ user, save, onLogout }) {
           user={user}
           balance={balance}
           onLogout={onLogout}
+          onGame={() => setMode('game')}
           onDeposit={() => setMode('deposit')}
           onWithdraw={() => setMode('withdraw')}
           onTransactions={() => setMode('transactions')}
           onSettings={() => setSettingsOpen(true)}
+          activePage="transactions"
         />
         <TransactionHistoryPage
           user={user}
@@ -191,10 +197,12 @@ function GameDashboard({ user, save, onLogout }) {
         user={user}
         balance={balance}
         onLogout={onLogout}
+        onGame={() => setMode('game')}
         onDeposit={() => setMode('deposit')}
         onWithdraw={() => setMode('withdraw')}
         onTransactions={() => setMode('transactions')}
         onSettings={() => setSettingsOpen(true)}
+        activePage="game"
       />
 
       <HistoryBar history={engine.roundHistory} />

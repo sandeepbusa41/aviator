@@ -729,7 +729,7 @@
     <div class="header-brand">✈ AEROX</div>
     <div class="header-right">
       <div class="wallet">
-        <span class="wallet-icon">💰</span>
+        <span class="wallet-icon"></span>
         <div>
           <div class="wallet-label">Balance</div>
           <div class="wallet-amount" id="wallet-display">10,000</div>
@@ -1290,7 +1290,7 @@ function updateActionButton() {
     }
   } else if (state.gamePhase === 'flying') {
     if (state.betPlaced && !state.cashedOut) {
-      btn.textContent = '💰 CASH OUT ' + state.multiplier.toFixed(2) + 'x';
+      btn.textContent = ' CASH OUT ' + state.multiplier.toFixed(2) + 'x';
       btn.classList.add('btn-cashout');
       btn.disabled = false;
     } else if (state.cashedOut) {

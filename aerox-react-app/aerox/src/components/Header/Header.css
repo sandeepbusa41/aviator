@@ -52,6 +52,13 @@
   background: rgba(230, 57, 70, 0.05);
 }
 
+.nav-btn--active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(230, 57, 70, 0.15);
+  font-weight: 800;
+}
+
 .nav-btn--deposit:hover {
   border-color: var(--green);
   color: var(--green);
@@ -68,6 +75,12 @@
   border-color: var(--yellow);
   color: var(--yellow);
   background: rgba(255, 205, 86, 0.05);
+}
+
+.nav-btn--game:hover {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(46, 204, 113, 0.05);
 }
 
 .header__right {
@@ -323,7 +336,16 @@
   }
 
   .wallet__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wallet__label {
     display: none;
+  }
+
+  .wallet__amount {
+    font-size: 0.7rem;
   }
 
   .btn-settings-large {

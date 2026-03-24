@@ -41,27 +41,6 @@ function RoundHistoryPanel({ history, stats }) {
           <p className="history-empty">No rounds yet</p>
         )}
       </div>
-
-      {/* Stats strip */}
-      <div className="stats-strip">
-        <div className="stat-cell">
-          <div className="stat-val stat-val--wins">{stats.wins}</div>
-          <div className="stat-lbl">Wins</div>
-        </div>
-        <div className="stat-cell">
-          <div className="stat-val stat-val--losses">{stats.losses}</div>
-          <div className="stat-lbl">Losses</div>
-        </div>
-        <div className="stat-cell">
-          <div
-            className="stat-val"
-            style={{ color: net >= 0 ? 'var(--green)' : 'var(--accent)' }}
-          >
-            {net >= 0 ? '+' : ''}{formatCoins(net)}
-          </div>
-          <div className="stat-lbl">Net P/L</div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -128,7 +128,7 @@ function WithdrawPage({ user, balance, onBack, onBalanceUpdate, onShowToast }) {
         <button className="btn-close" onClick={onBack}>←</button>
 
         <div className="withdraw-header">
-          <h2 className="withdraw-title">WITHDRAW COINS</h2>
+          <h2 className="withdraw-title">WITHDRAW</h2>
           <div className="current-balance">
             <span className="balance-label">Available Balance</span>
             <span className="balance-amount">{formatCoins(balance)}</span>
@@ -149,7 +149,6 @@ function WithdrawPage({ user, balance, onBack, onBalanceUpdate, onShowToast }) {
               onChange={e => setWithdrawAmount(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') document.getElementById('upi-id').focus(); }}
             />
-            <span className="amount-suffix">COINS</span>
           </div>
         </div>
 

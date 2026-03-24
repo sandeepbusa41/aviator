@@ -2,7 +2,7 @@ import React from 'react';
 import './Header.css';
 import { formatCoins } from '../../utils/gameUtils';
 
-function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions, onSettings }) {
+function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions, onGame, onSettings, activePage }) {
   const initial = user ? user[0].toUpperCase() : '?';
 
   return (
@@ -10,26 +10,31 @@ function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions
       <div className="header__brand">✈ AEROX</div>
 
       <div className="header__nav">
+        {onGame && (
+          <button className={`nav-btn nav-btn--game ${activePage === 'game' ? 'nav-btn--active' : ''}`} onClick={onGame} title="Game">
+            🎮 Aviator
+          </button>
+        )}
         {onDeposit && (
-          <button className="nav-btn nav-btn--deposit" onClick={onDeposit} title="Deposit">
-            💰 Deposit
+          <button className={`nav-btn nav-btn--deposit ${activePage === 'deposit' ? 'nav-btn--active' : ''}`} onClick={onDeposit} title="Deposit">
+             Deposit
           </button>
         )}
         {onWithdraw && (
-          <button className="nav-btn nav-btn--withdraw" onClick={onWithdraw} title="Withdraw">
+          <button className={`nav-btn nav-btn--withdraw ${activePage === 'withdraw' ? 'nav-btn--active' : ''}`} onClick={onWithdraw} title="Withdraw">
             🏦 Withdraw
           </button>
         )}
         {onTransactions && (
-          <button className="nav-btn nav-btn--transactions" onClick={onTransactions} title="Transactions">
+          <button className={`nav-btn nav-btn--transactions ${activePage === 'transactions' ? 'nav-btn--active' : ''}`} onClick={onTransactions} title="Transactions">
             📋 Transactions
           </button>
         )}
       </div>
 
       <div className="header__right">
-        <div className="wallet">
-          <span className="wallet__icon">💰</span>
+        <div className="wallet">  
+          {/* <span className="wallet__icon"></span> */}
           <div className="wallet__info">
             <span className="wallet__label">Balance</span>
             <span className="wallet__amount">{formatCoins(balance)}</span>

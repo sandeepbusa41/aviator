@@ -58,7 +58,7 @@ function BetPanel({
     }
   } else if (phase === 'flying') {
     if (betPlaced && !cashedOut) {
-      btnLabel = `💰 CASH OUT  ${multiplier.toFixed(2)}x`;
+      btnLabel = ` CASH OUT  ${multiplier.toFixed(2)}x`;
       btnClass = 'action-btn action-btn--cashout';
     } else if (cashedOut) {
       btnLabel    = `✓ CASHED OUT @ ${cashedOutAt.toFixed(2)}x`;
@@ -91,7 +91,6 @@ function BetPanel({
           onChange={e => setInputBet(e.target.value)}
           disabled={betPlaced || phase !== 'countdown'}
         />
-        <span className="bet-input-suffix">COINS</span>
       </div>
 
       {/* Quick-bet buttons */}

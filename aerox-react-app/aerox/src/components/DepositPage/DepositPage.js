@@ -73,7 +73,7 @@ function DepositPage({ user, balance, onBack, onBalanceUpdate, onShowToast }) {
       onBalanceUpdate(newBalance);
 
       // Show success message
-      setSuccess(`Deposit successful! +${formatCoins(amount)} coins added`);
+      setSuccess(`Deposit successful! +${formatCoins(amount)}`);
 
       // Show toast notification
       if (onShowToast) {
@@ -102,7 +102,7 @@ function DepositPage({ user, balance, onBack, onBalanceUpdate, onShowToast }) {
         <button className="btn-close" onClick={onBack}>←</button>
 
         <div className="deposit-header">
-          <h2 className="deposit-title">DEPOSIT COINS</h2>
+          <h2 className="deposit-title">DEPOSIT</h2>
           <div className="current-balance">
             <span className="balance-label">Current Balance</span>
             <span className="balance-amount">{formatCoins(balance)}</span>
@@ -137,7 +137,6 @@ function DepositPage({ user, balance, onBack, onBalanceUpdate, onShowToast }) {
               onChange={e => setDepositAmount(e.target.value)}
               onKeyDown={handleKeyDown}
             />
-            <span className="amount-suffix">COINS</span>
           </div>
         </div>
 
