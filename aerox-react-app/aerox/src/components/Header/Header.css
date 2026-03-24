@@ -12,7 +12,7 @@
 
 .header__brand {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 1.50rem;
   font-weight: 900;
   letter-spacing: 1.5px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -38,12 +38,16 @@
   padding: 4px 10px;
   border-radius: var(--radius-sm);
   font-family: var(--font-display);
-  font-size: 0.65rem;
+  font-size: 0.95rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: border-color var(--transition), color var(--transition), background var(--transition);
   white-space: nowrap;
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .nav-btn:hover {
@@ -52,13 +56,33 @@
   background: rgba(230, 57, 70, 0.05);
 }
 
-.nav-btn--active {
+/* Deposit (Green) */
+.nav-btn--deposit.nav-btn--active {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(46, 204, 113, 0.15);
+}
+
+/* Withdraw (Red / Accent) */
+.nav-btn--withdraw.nav-btn--active {
   border-color: var(--accent);
   color: var(--accent);
   background: rgba(230, 57, 70, 0.15);
-  font-weight: 800;
 }
 
+/* Transactions (Yellow) */
+.nav-btn--transactions.nav-btn--active {
+  border-color: var(--yellow);
+  color: var(--yellow);
+  background: rgba(255, 205, 86, 0.15);
+}
+
+/* Game (Green) */
+.nav-btn--game.nav-btn--active {
+  border-color: var(--green);
+  color: var(--green);
+  background: rgba(46, 204, 113, 0.15);
+}
 .nav-btn--deposit:hover {
   border-color: var(--green);
   color: var(--green);
@@ -83,10 +107,71 @@
   background: rgba(46, 204, 113, 0.05);
 }
 
+/* Right section */
 .header__right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+}
+
+/* Balance pill */
+.wallet-pill {
+  display: flex;
+  flex-direction: column;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(0, 255, 150, 0.05);
+  border: 1px solid rgba(0, 255, 150, 0.2);
+}
+
+.wallet-label {
+  font-size: 1.0rem;
+  color: var(--text-muted);
+}
+
+.wallet-amount {
+  font-size: 1.0rem;
+  font-weight: 700;
+  color: var(--green);
+}
+
+/* Avatar */
+.user-avatar-circle {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.user-avatar-circle:hover {
+  transform: scale(1.1);
+}
+
+/* Settings button */
+.settings-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.settings-icon-btn:hover {
+  border-color: var(--accent);
+  background: rgba(230, 57, 70, 0.1);
+  transform: rotate(20deg);
 }
 
 /* Wallet */
@@ -111,7 +196,7 @@
 
 .wallet__label {
   font-family: var(--font-mono);
-  font-size: 0.5rem;
+  font-size: 1.0rem;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;

@@ -1,6 +1,7 @@
 import React from 'react';
 import './Header.css';
 import { formatCoins } from '../../utils/gameUtils';
+import { ArrowDownCircle, ArrowUpCircle, Receipt } from "lucide-react";
 
 function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions, onGame, onSettings, activePage }) {
   const initial = user ? user[0].toUpperCase() : '?';
@@ -17,41 +18,37 @@ function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions
         )}
         {onDeposit && (
           <button className={`nav-btn nav-btn--deposit ${activePage === 'deposit' ? 'nav-btn--active' : ''}`} onClick={onDeposit} title="Deposit">
-             Deposit
+             <ArrowDownCircle size={16} /> Deposit
           </button>
         )}
         {onWithdraw && (
           <button className={`nav-btn nav-btn--withdraw ${activePage === 'withdraw' ? 'nav-btn--active' : ''}`} onClick={onWithdraw} title="Withdraw">
-            🏦 Withdraw
+          <ArrowUpCircle size={16} /> Withdraw
           </button>
         )}
         {onTransactions && (
           <button className={`nav-btn nav-btn--transactions ${activePage === 'transactions' ? 'nav-btn--active' : ''}`} onClick={onTransactions} title="Transactions">
-            📋 Transactions
+            <Receipt size={16} /> Transactions
           </button>
         )}
       </div>
 
       <div className="header__right">
-        <div className="wallet">  
-          {/* <span className="wallet__icon"></span> */}
-          <div className="wallet__info">
-            <span className="wallet__label">Balance</span>
-            <span className="wallet__amount">{formatCoins(balance)}</span>
-          </div>
+        {/* Balance */}
+        <div className="wallet-pill">
+          <span className="wallet-label">Balance</span>
+          <span className="wallet-amount">₹{formatCoins(balance)}</span>
         </div>
 
+        {/* User Avatar */}
+        <div className="user-avatar-circle" title={user}>
+          {initial}
+        </div>
+
+        {/* Settings */}
         {onSettings && (
-          <button className="btn-settings-large" onClick={onSettings} title="Settings">
-            <div className="settings-content">
-              <div className="settings-user">
-                <div className="settings-avatar">{initial}</div>
-                <div className="settings-user-info">
-                  <span className="settings-username">{user}</span>
-                </div>
-              </div>
-              <div className="settings-icon">⚙️</div>
-            </div>
+          <button className="settings-icon-btn" onClick={onSettings} title="Settings">
+            ⚙️
           </button>
         )}
       </div>
