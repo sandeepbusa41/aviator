@@ -2,12 +2,30 @@ import React from 'react';
 import './Header.css';
 import { formatCoins } from '../../utils/gameUtils';
 
-function Header({ user, balance, onLogout }) {
+function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions }) {
   const initial = user ? user[0].toUpperCase() : '?';
 
   return (
     <header className="header">
       <div className="header__brand">✈ AEROX</div>
+
+      <div className="header__nav">
+        {onDeposit && (
+          <button className="nav-btn nav-btn--deposit" onClick={onDeposit} title="Deposit">
+            💰 Deposit
+          </button>
+        )}
+        {onWithdraw && (
+          <button className="nav-btn nav-btn--withdraw" onClick={onWithdraw} title="Withdraw">
+            🏦 Withdraw
+          </button>
+        )}
+        {onTransactions && (
+          <button className="nav-btn nav-btn--transactions" onClick={onTransactions} title="Transactions">
+            📋 Transactions
+          </button>
+        )}
+      </div>
 
       <div className="header__right">
         <div className="wallet">
@@ -30,3 +48,4 @@ function Header({ user, balance, onLogout }) {
 }
 
 export default Header;
+
