@@ -9,6 +9,12 @@ function RoundHistoryPanel({ history, stats }) {
     <div className="history-panel">
       <p className="section-title">Your Bets</p>
 
+      <div className="history-headers">
+        <span className="header-crash">Crash Point</span>
+        <span className="header-cashed">Cashed Out Point</span>
+        <span className="header-amount">Amount</span>
+      </div>
+
       <div className="history-list">
         {history.filter(r => r.result !== null).slice(0, 40).map((r, i) => {
           let rowClass = 'history-row';
@@ -32,10 +38,9 @@ function RoundHistoryPanel({ history, stats }) {
 
           return (
             <div key={r.time || i} className={rowClass}>
-              <span className="hr-round">#{r.round}</span>
               <span className="hr-crash">{r.crashAt.toFixed(2)}x</span>
               {r.cashedAt && (
-                <span className="hr-cashed">out@{r.cashedAt.toFixed(2)}x</span>
+                <span className="hr-cashed">{r.cashedAt.toFixed(2)}x</span>
               )}
               <span className="hr-result">{resultText}</span>
             </div>

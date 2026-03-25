@@ -1,3 +1,6 @@
+import { createNewUserSave } from './fakeHistoryGenerator';
+import { saveToStorage } from './storage';
+
 const CREDENTIALS_KEY = 'aerox_credentials';
 
 /**
@@ -48,14 +51,21 @@ export function loadAllCredentials() {
 
 /**
  * Save credentials for a username
+ * For first-time users, also creates initial game save with fake history
  * @param {string} username - Username
  * @param {string} password - Password (plaintext)
  */
 export function saveCredentials(username, password) {
   try {
+    // Save credentials
     const creds = loadAllCredentials();
     creds[username] = password;
     localStorage.setItem(CREDENTIALS_KEY, JSON.stringify(creds));
+
+    // Create initial game save with fake history for new user
+    const initialSave = createNewUserSave(username);
+    saveToStorage(initialSave, username);
+
     return true;
   } catch (_) {
     return false;

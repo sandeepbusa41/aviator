@@ -8,6 +8,36 @@
   flex-shrink: 0;
 }
 
+.history-headers {
+  display: flex;
+  gap: 6px;
+  padding: 8px 10px 6px;
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.header-crash {
+  flex: 0 0 auto;
+  min-width: 50px;
+}
+
+.header-cashed {
+  flex: 1;
+  min-width: 0;
+}
+
+.header-amount {
+  flex: 0 0 auto;
+  min-width: 60px;
+  text-align: right;
+}
+
 .history-list {
   flex: 1;
   overflow-y: auto;
@@ -54,20 +84,12 @@
   border-color: rgba(230, 57, 70, 0.15);
 }
 
-.hr-round {
-  font-family: var(--font-mono);
-  font-size: 0.6rem;
-  color: var(--text-muted);
-  min-width: 34px;
-  flex-shrink: 0;
-}
-
 .hr-crash {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 0.78rem;
-  flex: 1;
-  min-width: 0;
+  flex: 0 0 auto;
+  min-width: 50px;
 }
 
 .history-row--win    .hr-crash { color: var(--green); }
@@ -75,9 +97,10 @@
 
 .hr-cashed {
   font-family: var(--font-mono);
-  font-size: 0.58rem;
+  font-size: 0.78rem;
   color: var(--text-muted);
-  flex-shrink: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .hr-result {
