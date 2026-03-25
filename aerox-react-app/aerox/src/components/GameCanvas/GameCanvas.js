@@ -17,6 +17,7 @@ function GameCanvas({ phase, multiplier, countdown, pathPoints }) {
     const w = wrapperRef.current;
     if (!c || !w) return;
  
+    
     c.width = w.clientWidth;
     c.height = w.clientHeight;
  
