@@ -102,16 +102,6 @@ function BetPanel({
           </button>
         ))}
       </div>
-      <div className="quick-bets">
-        <button className="quick-bet-btn" onClick={() => setBet(1000)}
-          disabled={betPlaced || phase !== 'countdown'}>1K</button>
-        <button className="quick-bet-btn" onClick={halfBet}
-          disabled={betPlaced || phase !== 'countdown'}>½</button>
-        <button className="quick-bet-btn" onClick={doubleBet}
-          disabled={betPlaced || phase !== 'countdown'}>×2</button>
-        <button className="quick-bet-btn" onClick={maxBet}
-          disabled={betPlaced || phase !== 'countdown'}>MAX</button>
-      </div>
 
       {/* Auto cashout */}
       <div className="auto-row">

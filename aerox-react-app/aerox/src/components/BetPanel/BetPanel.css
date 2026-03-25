@@ -300,11 +300,12 @@
   }
 
   .auto-input {
-    width: 70px;
+    width: 75px;
+    padding: 5px 24px 5px 8px;
   }
 
  .auto-input-wrap {
-    width: 70px;
+    width: 75px;
   }
 
   .action-buttons {
@@ -379,12 +380,12 @@
   }
 
   .auto-input-wrap {
-    width: 65px;
+    width: 80px;
   }
 
   .auto-input {
     font-size: 0.8rem;
-    padding: 6px 8px;
+    padding: 6px 24px 6px 10px;
   }
 
   .action-buttons {
@@ -442,11 +443,12 @@
   }
 
   .auto-input-wrap {
-    width: 60px;
+    width: 75px;
   }
 
   .auto-input {
     font-size: 0.75rem;
+    padding: 6px 22px 6px 10px;
   }
 
   .btn-place,

@@ -1,9 +1,11 @@
 .history-panel {
-  flex: 1;
+  min-height: 240px;
+  max-height: 280px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   padding: 16px 16px 0;
+  flex-shrink: 0;
 }
 
 .history-list {

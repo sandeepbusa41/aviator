@@ -4,10 +4,15 @@
   padding: 4px 8px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-shrink: 0;
   z-index: 10;
   gap: 6px;
+}
+
+.btn-settings-large {
+  order: -1;
+  flex-shrink: 0;
 }
 
 .header__brand {
@@ -112,6 +117,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  margin-left: auto;
 }
 
 /* Balance pill */
@@ -324,109 +330,175 @@
 /* Tablets */
 @media (max-width: 768px) {
   .header {
-    padding: 3px 6px;
+    padding: 8px 10px;
+    gap: 8px;
   }
 
   .header__brand {
-    font-size: 0.95rem;
-    letter-spacing: 1.5px;
-  }
-
-  .btn-settings-large {
-    padding: 3px 8px;
-  }
-
-  .settings-avatar {
-    width: 16px;
-    height: 16px;
-    font-size: 0.55rem;
-  }
-
-  .settings-icon {
-    font-size: 0.85rem;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    flex-shrink: 0;
   }
 
   .header__nav {
-    gap: 3px;
-    margin: 0 6px;
+    gap: 6px;
+    margin: 0 8px;
   }
 
   .nav-btn {
-    padding: 3px 6px;
-    font-size: 0.55rem;
+    padding: 6px 10px;
+    font-size: 0.7rem;
+    min-width: auto;
   }
 
   .header__right {
-    gap: 4px;
+    gap: 8px;
+    display: flex;
   }
 
   .wallet {
-    padding: 3px 8px;
-    gap: 4px;
-  }
-
-  .wallet__icon {
-    font-size: 0.8rem;
+    padding: 6px 10px;
+    gap: 6px;
   }
 
   .wallet__label {
-    font-size: 0.45rem;
+    font-size: 0.65rem;
   }
 
   .wallet__amount {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .btn-settings-large {
+    padding: 6px 10px;
+    gap: 6px;
+  }
+
+  .settings-avatar {
+    width: 18px;
+    height: 18px;
+    font-size: 0.6rem;
+  }
+
+  .settings-icon {
+    font-size: 1rem;
   }
 }
 
 /* Mobile phones */
 @media (max-width: 600px) {
   .header {
-    padding: 3px 6px;
-    flex-wrap: nowrap;
-    gap: 4px;
+    padding: 10px 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 60px;
   }
 
   .header__brand {
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.5px;
-    flex-shrink: 0;
+    flex-basis: 100%;
+    text-align: center;
+    margin-bottom: 2px;
   }
 
   .header__nav {
     flex: 1;
-    gap: 2px;
+    gap: 6px;
     margin: 0;
-    justify-content: flex-start;
+    justify-content: center;
+    order: 2;
   }
 
   .nav-btn {
-    padding: 2px 5px;
-    font-size: 0.5rem;
+    padding: 6px 8px;
+    font-size: 0.65rem;
     min-width: auto;
     flex: 0 1 auto;
   }
 
   .header__right {
-    flex: 0 0 auto;
-    gap: 3px;
+    flex: 0 1 auto;
+    gap: 8px;
+    order: 3;
   }
 
   .wallet {
-    padding: 3px 8px;
-    gap: 4px;
-  }
-
-  .wallet__icon {
-    font-size: 0.75rem;
-  }
-
-  .wallet__info {
+    padding: 6px 10px;
+    gap: 6px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
   }
 
   .wallet__label {
-    display: none;
+    display: block;
+    font-size: 0.6rem;
+  }
+
+  .wallet__amount {
+    font-size: 0.75rem;
+  }
+
+  .btn-settings-large {
+    padding: 6px 10px;
+    gap: 6px;
+    display: flex;
+  }
+
+  .settings-avatar {
+    width: 18px;
+    height: 18px;
+    font-size: 0.6rem;
+  }
+
+  .settings-icon {
+    font-size: 0.95rem;
+  }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  .header {
+    padding: 12px 8px;
+    flex-wrap: wrap;
+    gap: 8px;
+    min-height: 70px;
+  }
+
+  .header__brand {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    flex-basis: 100%;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .header__nav {
+    flex: 1;
+    gap: 4px;
+    justify-content: center;
+    order: 2;
+  }
+
+  .nav-btn {
+    padding: 6px 8px;
+    font-size: 0.6rem;
+    min-width: auto;
+  }
+
+  .header__right {
+    flex: 0 1 auto;
+    gap: 6px;
+    order: 3;
+  }
+
+  .wallet {
+    padding: 6px 10px;
+    gap: 4px;
+  }
+
+  .wallet__label {
+    font-size: 0.55rem;
   }
 
   .wallet__amount {
@@ -434,68 +506,17 @@
   }
 
   .btn-settings-large {
-    padding: 3px 8px;
+    padding: 6px 10px;
     gap: 4px;
   }
 
   .settings-avatar {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     font-size: 0.55rem;
   }
 
   .settings-icon {
-    font-size: 0.8rem;
-  }
-}
-
-/* Small phones */
-@media (max-width: 480px) {
-  .header {
-    padding: 2px 4px;
-    gap: 3px;
-  }
-
-  .header__brand {
-    font-size: 0.8rem;
-    letter-spacing: 0px;
-  }
-
-  .header__nav {
-    gap: 1px;
-  }
-
-  .nav-btn {
-    padding: 1px 3px;
-    font-size: 0.45rem;
-  }
-
-  .wallet {
-    padding: 2px 6px;
-    gap: 3px;
-  }
-
-  .wallet__icon {
-    font-size: 0.7rem;
-  }
-
-  .btn-settings-large {
-    padding: 2px 6px;
-    gap: 3px;
-  }
-
-  .settings-avatar {
-    width: 14px;
-    height: 14px;
-    font-size: 0.5rem;
-  }
-
-  .settings-icon {
-    font-size: 0.75rem;
-  }
-
-  .btn-logout {
-    padding: 1px 3px;
-    font-size: 0.45rem;
+    font-size: 0.9rem;
   }
 }
