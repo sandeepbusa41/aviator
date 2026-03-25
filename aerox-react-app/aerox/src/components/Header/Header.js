@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 import { formatCoins } from '../../utils/gameUtils';
-import { ArrowDownCircle, ArrowUpCircle, Receipt } from "lucide-react";
+import { ArrowDownCircle, ArrowUpCircle, Receipt, Plane } from "lucide-react";
 
 function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions, onGame, onSettings, activePage }) {
   const initial = user ? user[0].toUpperCase() : '?';
@@ -13,7 +13,7 @@ function Header({ user, balance, onLogout, onDeposit, onWithdraw, onTransactions
       <div className="header__nav">
         {onGame && (
           <button className={`nav-btn nav-btn--game ${activePage === 'game' ? 'nav-btn--active' : ''}`} onClick={onGame} title="Game">
-            🎮 Aviator
+            <Plane size={16} /> Aviator
           </button>
         )}
         {onDeposit && (

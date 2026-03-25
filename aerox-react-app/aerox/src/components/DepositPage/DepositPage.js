@@ -105,7 +105,7 @@ function DepositPage({ user, balance, onBack, onBalanceUpdate, onShowToast }) {
           <h2 className="deposit-title">DEPOSIT</h2>
           <div className="current-balance">
             <span className="balance-label">Current Balance</span>
-            <span className="balance-amount">{formatCoins(balance)}</span>
+            <span className="balance-amount">₹{formatCoins(balance)}</span>
           </div>
         </div>
 

@@ -131,8 +131,6 @@ function LoginPage({ onLogin, onForgotPassword }) {
         <button className="btn-forgot" onClick={onForgotPassword}>
           Forgot Password?
         </button>
-
-        <p className="login-note">🎰 Virtual currency only · No real money</p>
       </div>
     </div>
   );

@@ -131,7 +131,7 @@ function WithdrawPage({ user, balance, onBack, onBalanceUpdate, onShowToast }) {
           <h2 className="withdraw-title">WITHDRAW</h2>
           <div className="current-balance">
             <span className="balance-label">Available Balance</span>
-            <span className="balance-amount">{formatCoins(balance)}</span>
+            <span className="balance-amount">₹{formatCoins(balance)}</span>
           </div>
         </div>
 

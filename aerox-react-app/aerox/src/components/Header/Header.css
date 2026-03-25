@@ -82,11 +82,11 @@
   background: rgba(255, 205, 86, 0.15);
 }
 
-/* Game (Green) */
+/* Game (Blue) */
 .nav-btn--game.nav-btn--active {
-  border-color: var(--green);
-  color: var(--green);
-  background: rgba(46, 204, 113, 0.15);
+  border-color: var(--blue);
+  color: var(--blue);
+  background: rgba(52, 152, 219, 0.15);
 }
 .nav-btn--deposit:hover {
   border-color: var(--green);
@@ -107,9 +107,9 @@
 }
 
 .nav-btn--game:hover {
-  border-color: var(--green);
-  color: var(--green);
-  background: rgba(46, 204, 113, 0.05);
+  border-color: var(--blue);
+  color: var(--blue);
+  background: rgba(52, 152, 219, 0.05);
 }
 
 /* Right section */

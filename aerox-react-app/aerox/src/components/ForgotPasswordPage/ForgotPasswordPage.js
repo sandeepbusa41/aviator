@@ -174,8 +174,6 @@ function ForgotPasswordPage({ onBack, onReset }) {
         <button className="btn-back" onClick={onBack}>
           ← BACK TO LOGIN
         </button>
-
-        <p className="login-note">🎰 Virtual currency only · No real money</p>
       </div>
     </div>
   );
