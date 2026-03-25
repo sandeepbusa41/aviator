@@ -18,16 +18,19 @@ class SoundManager {
       this.airplaneAudio = new Audio('/sounds/airplane-flying.mp3');
       this.airplaneAudio.loop = true;
       this.airplaneAudio.volume = 0.5;
+      this.airplaneAudio.preload = 'auto';
 
       // Create crash sound element (plays once)
       this.crashAudio = new Audio('/sounds/crash.mp3');
       this.crashAudio.loop = false;
       this.crashAudio.volume = 0.7;
+      this.crashAudio.preload = 'auto';
 
       // Load saved settings
       this.loadSettings();
 
       this.isInitialized = true;
+      console.log('Sound Manager Initialized');
       return true;
     } catch (error) {
       console.warn('Sound initialization failed:', error);
@@ -66,17 +69,27 @@ class SoundManager {
 
   // Play airplane flying sound (starts looping)
   playAirplaneSound() {
-    if (!this.isInitialized || this.isMuted || !this.gameSoundEnabled) {
+    if (!this.isInitialized) {
+      console.warn('Sound Manager not initialized');
+      return;
+    }
+
+    if (this.isMuted || !this.gameSoundEnabled) {
+      console.info('Sounds muted or disabled');
       return;
     }
 
     try {
       if (this.airplaneAudio) {
-        // Ensure it's not already playing to avoid overlapping
-        if (this.airplaneAudio.paused) {
-          this.airplaneAudio.currentTime = 0;
-          this.airplaneAudio.play().catch(err => {
+        // Always restart the sound
+        this.airplaneAudio.currentTime = 0;
+        const playPromise = this.airplaneAudio.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
             console.warn('Airplane sound play failed:', err);
+          }).then(() => {
+            console.log('Airplane sound playing');
           });
         }
       }
@@ -91,6 +104,7 @@ class SoundManager {
       if (this.airplaneAudio && !this.airplaneAudio.paused) {
         this.airplaneAudio.pause();
         this.airplaneAudio.currentTime = 0;
+        console.log('Airplane sound stopped');
       }
     } catch (error) {
       console.warn('Error stopping airplane sound:', error);
@@ -99,16 +113,28 @@ class SoundManager {
 
   // Play crash sound (one-shot)
   playCrashSound() {
-    if (!this.isInitialized || this.isMuted || !this.gameSoundEnabled) {
+    if (!this.isInitialized) {
+      console.warn('Sound Manager not initialized');
+      return;
+    }
+
+    if (this.isMuted || !this.gameSoundEnabled) {
+      console.info('Sounds muted or disabled');
       return;
     }
 
     try {
       if (this.crashAudio) {
         this.crashAudio.currentTime = 0;
-        this.crashAudio.play().catch(err => {
-          console.warn('Crash sound play failed:', err);
-        });
+        const playPromise = this.crashAudio.play();
+
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            console.warn('Crash sound play failed:', err);
+          }).then(() => {
+            console.log('Crash sound playing');
+          });
+        }
       }
     } catch (error) {
       console.warn('Error playing crash sound:', error);
