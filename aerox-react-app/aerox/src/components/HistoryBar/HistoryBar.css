@@ -49,12 +49,8 @@
   border: 1px solid rgba(230, 57, 70, 0.3);
 }
 
-.history-chip.chip--played {
-  border: 2px solid currentColor;
-}
-
 .history-chip.chip--unplayed {
-  border: none;
+  border: 1px solid rgba(90, 127, 160, 0.3);
   background: transparent;
   color: var(--text-muted);
 }

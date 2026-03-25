@@ -1,6 +1,5 @@
 import React from 'react';
 import './HistoryBar.css';
-import { chipClass } from '../../utils/gameUtils';
 
 function HistoryBar({ history }) {
   const recent = history.slice(0, 22);
@@ -10,14 +9,24 @@ function HistoryBar({ history }) {
       <span className="history-bar__label">History</span>
       <div className="history-bar__chips">
         {recent.map((r, i) => {
-          // Color based on multiplier: high=red, low=green
-          const baseClass = chipClass(r.crashAt);
-          // Add played modifier for bet rounds (solid border), unplayed have no border
-          const chipClassName = r.result === null ? `${baseClass} chip--unplayed` : `${baseClass} chip--played`;
+          // Color based on win/loss: win = green, loss = red, unplayed = no color
+          let chipClassName = 'history-chip';
+
+          if (r.result === null) {
+            // Unplayed round - no color
+            chipClassName += ' chip--unplayed';
+          } else if (r.result >= 0) {
+            // Win - green
+            chipClassName += ' chip--low';
+          } else {
+            // Loss - red
+            chipClassName += ' chip--high';
+          }
+
           return (
             <span
               key={r.time || i}
-              className={`history-chip ${chipClassName}`}
+              className={chipClassName}
             >
               {r.crashAt.toFixed(2)}x
             </span>
