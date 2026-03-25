@@ -49,8 +49,7 @@ export function formatCoins(n) {
 
 /** Return CSS class name for a crash chip based on value */
 export function chipClass(v) {
-  if (v < 1.5)  return 'chip--low';
-  if (v < 3.0)  return 'chip--mid';
-  if (v < 10.0) return 'chip--high';
-  return 'chip--mega';
+  // High multiplier = red, Low multiplier = green
+  if (v >= 3.0) return 'chip--high'; // Red for high multipliers
+  return 'chip--low'; // Green for low multipliers
 }

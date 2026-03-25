@@ -40,6 +40,7 @@ export function useGameEngine(initialSave) {
   const rCrashAt = useRef(1);
   const rMultiplier = useRef(1);
   const rPathPoints = useRef([]);
+  const rCashedOutAt = useRef(0);
 
   const tickHandle = useRef(null);
   const cdHandle = useRef(null);
@@ -81,48 +82,23 @@ export function useGameEngine(initialSave) {
     soundManager.stopAirplaneSound()
 
     const m=rMultiplier.current
-    const bet=rBetAmount.current
-    const profit=Math.round(bet*m-bet)
-    const total=Math.round(bet*m)
-    const crash=rCrashAt.current
-    const rn=rRoundNum.current
+    const profit=Math.round(rBetAmount.current*m-rBetAmount.current)
+
+    // Store the cashout multiplier to use when round ends
+    rCashedOutAt.current = m
 
     setCashedOutAt(m)
 
     setBalance(b=>{
-      // Add back the bet amount plus profit (bet is already deducted)
+      const total=Math.round(rBetAmount.current*m)
       const newBal=b+total
       rBalance.current=newBal
-
-      setStats(s=>{
-        const ns={
-          wins:s.wins+1,
-          losses:s.losses,
-          net:s.net+profit
-        }
-
-        setRoundHistory(h=>{
-          const nh=[{
-            round:rn,
-            crashAt:crash,
-            result:profit,
-            cashedAt:m,
-            time:Date.now()
-          },...h]
-
-          persist(newBal,nh,ns,rn)
-          return nh
-        })
-
-        return ns
-      })
-
       return newBal
     })
 
     pushToast(`CASHED OUT @ ${m.toFixed(2)}x +${profit}`,'win')
 
-  },[pushToast,persist])
+  },[pushToast])
 
 
   const startCountdown = useCallback(()=>{
@@ -146,6 +122,7 @@ export function useGameEngine(initialSave) {
     rCashedOut.current=false
 
     setCashedOutAt(0)
+    rCashedOutAt.current=0
 
     const start=Date.now()
 
@@ -260,6 +237,7 @@ export function useGameEngine(initialSave) {
                 round:rn,
                 crashAt:crash,
                 result:-bet,
+                betAmount:bet,
                 cashedAt:null,
                 time:Date.now()
               },...h]
@@ -273,12 +251,42 @@ export function useGameEngine(initialSave) {
 
           pushToast(`CRASHED @ ${crash}x -${bet}`,'loss')
 
+        } else if(didBet && didCashOut){
+          // User cashed out - record this with the final crash multiplier
+          const cashedAtMult = rCashedOutAt.current
+          const profit = Math.round(bet*cashedAtMult-bet)
+
+          setStats(s=>{
+            const ns={
+              wins:s.wins,
+              losses:s.losses,
+              net:s.net+profit
+            }
+
+            setRoundHistory(h=>{
+              const nh=[{
+                round:rn,
+                crashAt:crash,
+                result:profit,
+                betAmount:bet,
+                cashedAt:cashedAtMult,
+                time:Date.now()
+              },...h]
+
+              persist(rBalance.current,nh,ns,rn)
+              return nh
+            })
+
+            return ns
+          })
+
         } else if(!didBet){
-          // No bet placed - just record round
+          // No bet placed - record with null result so it shows in history bar
           setRoundHistory(h=>[{
             round:rn,
             crashAt:crash,
             result:null,
+            betAmount:0,
             cashedAt:null,
             time:Date.now()
           },...h])

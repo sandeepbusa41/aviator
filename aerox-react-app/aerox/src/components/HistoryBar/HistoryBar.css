@@ -43,20 +43,36 @@
   border: 1px solid rgba(46, 204, 113, 0.3);
 }
 
+.history-chip.chip--high {
+  background: rgba(230, 57, 70, 0.12);
+  color: #e63946;
+  border: 1px solid rgba(230, 57, 70, 0.3);
+}
+
+.history-chip.chip--played {
+  border: 2px solid currentColor;
+}
+
+.history-chip.chip--unplayed {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+}
+
 .history-chip.chip--mid {
   background: rgba(52, 152, 219, 0.12);
   color: #3498db;
   border: 1px solid rgba(52, 152, 219, 0.3);
 }
 
-.history-chip.chip--high {
+.history-chip.chip--mega {
   background: rgba(241, 196, 15, 0.12);
   color: #f1c40f;
   border: 1px solid rgba(241, 196, 15, 0.3);
 }
 
-.history-chip.chip--mega {
-  background: rgba(230, 57, 70, 0.12);
-  color: #e63946;
-  border: 1px solid rgba(230, 57, 70, 0.3);
+.history-chip.chip--skipped {
+  background: rgba(90, 127, 160, 0.06);
+  color: var(--text-muted);
+  border: 1px solid rgba(90, 127, 160, 0.12);
 }

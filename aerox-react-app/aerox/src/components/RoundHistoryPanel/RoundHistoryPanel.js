@@ -7,7 +7,7 @@ function RoundHistoryPanel({ history, stats }) {
 
   return (
     <div className="history-panel">
-      <p className="section-title">Round History</p>
+      <p className="section-title">Your Bets</p>
 
       <div className="history-list">
         {history.filter(r => r.result !== null).slice(0, 40).map((r, i) => {
