@@ -24,7 +24,6 @@
 
 .header-crash {
   flex: 0 0 auto;
-  min-width: 50px;
 }
 
 .header-cashed {
@@ -34,7 +33,6 @@
 
 .header-amount {
   flex: 0 0 auto;
-  min-width: 60px;
   text-align: right;
 }
 
@@ -89,7 +87,6 @@
   font-weight: 700;
   font-size: 0.78rem;
   flex: 0 0 auto;
-  min-width: 50px;
 }
 
 .history-row--win    .hr-crash { color: var(--green); }
@@ -108,7 +105,6 @@
   font-weight: 700;
   font-size: 0.8rem;
   text-align: right;
-  min-width: 60px;
   flex-shrink: 0;
 }
 
@@ -149,4 +145,21 @@
   text-transform: uppercase;
   letter-spacing: 1px;
   margin-top: 2px;
+}
+
+.header-crash,
+.hr-crash {
+  flex: 0 0 60px;
+}
+
+.header-cashed,
+.hr-cashed {
+  flex: 1;
+  text-align: center;
+}
+
+.header-amount,
+.hr-result {
+  flex: 0 0 70px;
+  text-align: right;
 }

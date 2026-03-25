@@ -11,7 +11,7 @@ function RoundHistoryPanel({ history, stats }) {
 
       <div className="history-headers">
         <span className="header-crash">Crash Point</span>
-        <span className="header-cashed">Cashed Out Point</span>
+        <span className="header-cashed">CashedOut Point</span>
         <span className="header-amount">Amount</span>
       </div>
 
@@ -39,9 +39,7 @@ function RoundHistoryPanel({ history, stats }) {
           return (
             <div key={r.time || i} className={rowClass}>
               <span className="hr-crash">{r.crashAt.toFixed(2)}x</span>
-              {r.cashedAt && (
-                <span className="hr-cashed">{r.cashedAt.toFixed(2)}x</span>
-              )}
+              <span className="hr-cashed">{r.cashedAt ? r.cashedAt.toFixed(2) + 'x' : '—'}</span>
               <span className="hr-result">{resultText}</span>
             </div>
           );
