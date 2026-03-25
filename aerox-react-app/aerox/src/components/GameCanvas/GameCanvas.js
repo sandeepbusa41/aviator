@@ -147,7 +147,7 @@ function GameCanvas({ phase, multiplier, countdown, pathPoints }) {
     statusClass += " multiplier__status--flying";
   } else {
     multClass += " multiplier__value--crashed";
-    statusText = "💥 FLEW AWAY!";
+    statusText = "💥 CRASHED!";
     statusClass += " multiplier__status--crashed";
   }
  

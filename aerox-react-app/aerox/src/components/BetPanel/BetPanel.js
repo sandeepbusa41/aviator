@@ -119,9 +119,10 @@ function BetPanel({
         <div className="auto-controls">
           <div
             className={`toggle ${autoEnabled ? 'toggle--on' : ''}`}
-            onClick={() => setAutoEnabled(!autoEnabled)}
+            onClick={() => phase === 'countdown' && setAutoEnabled(!autoEnabled)}
             role="switch"
             aria-checked={autoEnabled}
+            style={{opacity: phase === 'countdown' ? 1 : 0.5, cursor: phase === 'countdown' ? 'pointer' : 'not-allowed'}}
           />
           <div className="auto-input-wrap">
             <input
@@ -144,6 +145,7 @@ function BetPanel({
                   setAutoCashAt(2.0);
                 }
               }}
+              disabled={phase !== 'countdown'}
             />
             <span className="auto-input-suffix">x</span>
           </div>

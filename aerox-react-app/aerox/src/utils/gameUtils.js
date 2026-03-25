@@ -3,14 +3,47 @@
  * ~30% crash ≤1.20x  |  ~25% 1.20–1.70x  |  ~20% 1.70–2.50x
  * ~15% 2.50–5.00x    |  ~7%  5–15x        |  ~3%  15–65x
  */
+// export function generateCrashPoint() {
+//   const r = Math.random();
+//   if (r < 0.30) return +(1.00 + Math.random() * 0.20).toFixed(2);
+//   if (r < 0.55) return +(1.20 + Math.random() * 0.50).toFixed(2);
+//   if (r < 0.75) return +(1.70 + Math.random() * 0.80).toFixed(2);
+//   if (r < 0.90) return +(2.50 + Math.random() * 2.50).toFixed(2);
+//   if (r < 0.97) return +(5.00 + Math.random() * 10.0).toFixed(2);
+//   return +(15.0 + Math.random() * 50.0).toFixed(2);
+// }
 export function generateCrashPoint() {
-  const r = Math.random();
-  if (r < 0.30) return +(1.00 + Math.random() * 0.20).toFixed(2);
-  if (r < 0.55) return +(1.20 + Math.random() * 0.50).toFixed(2);
-  if (r < 0.75) return +(1.70 + Math.random() * 0.80).toFixed(2);
-  if (r < 0.90) return +(2.50 + Math.random() * 2.50).toFixed(2);
-  if (r < 0.97) return +(5.00 + Math.random() * 10.0).toFixed(2);
-  return +(15.0 + Math.random() * 50.0).toFixed(2);
+  const ranges = [
+    { prob: 2,    min: 1.00, max: 1.00 },
+    { prob: 3,    min: 1.01, max: 1.10 },
+    { prob: 25,   min: 1.00, max: 1.20 },
+    { prob: 20,   min: 1.70, max: 2.50 },
+    { prob: 15,   min: 2.50, max: 5.00 },
+    { prob: 7,    min: 5.00, max: 15.00 },
+    { prob: 2.5,  min: 15.00, max: 65.00 },
+    { prob: 1.5,  min: 65.00, max: 99.00 },
+    { prob: 0.5,  min: 100.00, max: 2000.00 },
+  ];
+
+  // Normalize probabilities
+  const total = ranges.reduce((sum, r) => sum + r.prob, 0);
+
+  const r = Math.random() * total;
+
+  let cumulative = 0;
+
+  for (const range of ranges) {
+    cumulative += range.prob;
+
+    if (r <= cumulative) {
+      if (range.min === range.max) return range.min;
+
+      const value =
+        range.min + Math.random() * (range.max - range.min);
+
+      return +value.toFixed(2);
+    }
+  }
 }
 
 /**

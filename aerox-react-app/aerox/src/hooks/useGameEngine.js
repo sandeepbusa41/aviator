@@ -174,10 +174,13 @@ export function useGameEngine(initialSave) {
       const rawMult=Math.exp(exponent)
       const newMult=Math.round(Math.max(1,rawMult)*100)/100
 
-      rMultiplier.current=newMult
-      setMultiplier(newMult)
-
       const crash=rCrashAt.current
+
+      // Cap multiplier at crash point to prevent overshooting in display
+      const displayMult = Math.min(newMult, crash)
+
+      rMultiplier.current=displayMult
+      setMultiplier(displayMult)
 
       const W=window._aeroxCanvasW || 800
       const H=window._aeroxCanvasH || 400
@@ -190,7 +193,7 @@ export function useGameEngine(initialSave) {
       const x = Math.min(progress * 1.8, 1) * W;
 
       /* steep growth for small multipliers */
-      let yProg = 1 - Math.exp(-(newMult - 1) * 1.6);
+      let yProg = 1 - Math.exp(-(displayMult - 1) * 1.6);
 
       /* clamp to screen */
       if (yProg > 0.95) yProg = 0.95;
@@ -204,7 +207,11 @@ export function useGameEngine(initialSave) {
       rPathPoints.current=[...rPathPoints.current,{x,y}]
       setPathPoints([...rPathPoints.current])
 
-      if(rBetPlaced.current && !rCashedOut.current && rAutoEnabled.current && newMult>=rAutoCashAt.current){
+      // Check for autocashout - cap multiplier to exact autoCashAt value
+      if(rBetPlaced.current && !rCashedOut.current && rAutoEnabled.current && displayMult>=rAutoCashAt.current){
+        // Update multiplier to exact autoCashAt value before cashing out
+        rMultiplier.current = rAutoCashAt.current
+        setMultiplier(rAutoCashAt.current)
         cashOut()
       }
 
