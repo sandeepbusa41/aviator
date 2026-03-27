@@ -14,36 +14,36 @@
 // }
 export function generateCrashPoint() {
   const ranges = [
-    { prob: 2,    min: 1.00, max: 1.00 },
-    { prob: 3,    min: 1.01, max: 1.10 },
-    { prob: 25,   min: 1.00, max: 1.20 },
-    { prob: 20,   min: 1.70, max: 2.50 },
-    { prob: 15,   min: 2.50, max: 5.00 },
-    { prob: 7,    min: 5.00, max: 15.00 },
-    { prob: 2.5,  min: 15.00, max: 65.00 },
-    { prob: 1.5,  min: 65.00, max: 99.00 },
-    { prob: 0.5,  min: 100.00, max: 2000.00 },
+    { prob: 18,  min: 1.00,  max: 1.10 },
+    { prob: 19,  min: 1.11,  max: 1.50 },
+    { prob: 27,  min: 1.51,  max: 1.99 },
+    { prob: 10,  min: 2.00,  max: 2.25 },
+    { prob: 15,  min: 2.25,  max: 5.00 },
+    { prob: 5,   min: 5.00,  max: 10.00 },
+    { prob: 3,   min: 10.00, max: 50.00 },
+    { prob: 2,   min: 50.00, max: 100.00 },
+    { prob: 0.6, min: 100.00, max: 500.00 },
+    { prob: 0.3, min: 500.00, max: 1000.00 },
+    { prob: 0.1, min: 1000.00, max: 2000.00 },
   ];
 
-  // Normalize probabilities
   const total = ranges.reduce((sum, r) => sum + r.prob, 0);
-
-  const r = Math.random() * total;
+  const rand = Math.random() * total;
 
   let cumulative = 0;
 
   for (const range of ranges) {
     cumulative += range.prob;
 
-    if (r <= cumulative) {
-      if (range.min === range.max) return range.min;
-
+    if (rand <= cumulative) {
       const value =
         range.min + Math.random() * (range.max - range.min);
 
-      return +value.toFixed(2);
+      return Number(value.toFixed(2));
     }
   }
+
+  return 1.00; // fallback safety
 }
 
 /**
