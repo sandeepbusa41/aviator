@@ -25,7 +25,7 @@ function HistoryBar({ history }) {
         <div className="history-bar__chips">
           {recent.map((r, i) => (
             <span key={r.time || i} className={getChipClass(r)}>
-              {r.crashAt.toFixed(2)}x
+              {r.crashAt !== null ? r.crashAt.toFixed(2) + 'x' : '—'}
             </span>
           ))}
         </div>
@@ -54,7 +54,7 @@ function HistoryBar({ history }) {
             <div className="history-modal__content">
               {allHistory.map((r, i) => (
                 <span key={r.time || i} className={`history-chip history-chip--small ${getChipClass(r)}`}>
-                  {r.crashAt.toFixed(2)}x
+                  {r.crashAt !== null ? r.crashAt.toFixed(2) + 'x' : '—'}
                 </span>
               ))}
             </div>

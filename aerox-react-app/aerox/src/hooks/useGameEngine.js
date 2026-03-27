@@ -83,6 +83,8 @@ export function useGameEngine(initialSave) {
 
     const m=rMultiplier.current
     const profit=Math.round(rBetAmount.current*m-rBetAmount.current)
+    const bet=rBetAmount.current
+    const rn=rRoundNum.current
 
     // Store the cashout multiplier to use when round ends
     rCashedOutAt.current = m
@@ -96,9 +98,23 @@ export function useGameEngine(initialSave) {
       return newBal
     })
 
+    // Create record immediately with crashAt: null (will be filled when round ends)
+    setRoundHistory(h=>{
+      const nh=[{
+        round:rn,
+        crashAt:null,
+        result:profit,
+        betAmount:bet,
+        cashedAt:m,
+        time:Date.now()
+      },...h]
+      persist(rBalance.current,nh,stats,rn)
+      return nh
+    })
+
     pushToast(`CASHED OUT @ ${m.toFixed(2)}x +${profit}`,'win')
 
-  },[pushToast])
+  },[pushToast,persist,stats])
 
 
   const startCountdown = useCallback(()=>{
@@ -259,32 +275,19 @@ export function useGameEngine(initialSave) {
           pushToast(`CRASHED @ ${crash}x -${bet}`,'loss')
 
         } else if(didBet && didCashOut){
-          // User cashed out - record this with the final crash multiplier
+          // User cashed out - update the pending record with the crash point
           const cashedAtMult = rCashedOutAt.current
           const profit = Math.round(bet*cashedAtMult-bet)
 
-          setStats(s=>{
-            const ns={
-              wins:s.wins,
-              losses:s.losses,
-              net:s.net+profit
-            }
-
-            setRoundHistory(h=>{
-              const nh=[{
-                round:rn,
-                crashAt:crash,
-                result:profit,
-                betAmount:bet,
-                cashedAt:cashedAtMult,
-                time:Date.now()
-              },...h]
-
-              persist(rBalance.current,nh,ns,rn)
+          setRoundHistory(h=>{
+            if(h.length > 0 && h[0].crashAt === null){
+              // Update the pending record with crash point
+              const nh = [...h]
+              nh[0] = {...nh[0], crashAt: crash}
+              persist(rBalance.current,nh,stats,rn)
               return nh
-            })
-
-            return ns
+            }
+            return h
           })
 
         } else if(!didBet){

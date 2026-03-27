@@ -143,18 +143,18 @@ function GameCanvas({ phase, multiplier, countdown, pathPoints }) {
     statusClass += " multiplier__status--waiting";
   } else if (phase === "flying") {
     multClass += " multiplier__value--flying";
-    statusText = "🚀 FLYING";
+    statusText = "";
     statusClass += " multiplier__status--flying";
   } else {
     multClass += " multiplier__value--crashed";
-    statusText = "💥 CRASHED!";
+    statusText = "";
     statusClass += " multiplier__status--crashed";
   }
  
   return (
     <div className="game-canvas-wrap" ref={wrapperRef}>
       <canvas ref={canvasRef} className="game-canvas" />
- 
+      
       <div className="multiplier">
         <div className={multClass}>{multiplier.toFixed(2)}x</div>
         <div className={statusClass}>{statusText}</div>

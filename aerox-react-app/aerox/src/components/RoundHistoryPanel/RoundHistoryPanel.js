@@ -38,7 +38,7 @@ function RoundHistoryPanel({ history, stats }) {
 
           return (
             <div key={r.time || i} className={rowClass}>
-              <span className="hr-crash">{r.crashAt.toFixed(2)}x</span>
+              <span className="hr-crash">{r.crashAt !== null ? r.crashAt.toFixed(2) + 'x' : '—'}</span>
               <span className="hr-cashed">{r.cashedAt ? r.cashedAt.toFixed(2) + 'x' : '—'}</span>
               <span className="hr-result">{resultText}</span>
             </div>
