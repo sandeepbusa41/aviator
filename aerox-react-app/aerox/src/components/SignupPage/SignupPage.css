@@ -1,4 +1,4 @@
-.login-screen {
+.signup-screen {
   min-height: 100vh;
   display: flex;
   align-items: center;
@@ -9,7 +9,7 @@
 }
 
 /* grid overlay */
-.login-grid {
+.signup-grid {
   position: absolute;
   inset: 0;
   background:
@@ -19,7 +19,7 @@
 }
 
 /* card */
-.login-card {
+.signup-card {
   position: relative;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -27,9 +27,11 @@
   padding: 48px 40px;
   width: 380px;
   box-shadow: 0 0 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(30, 48, 80, 0.4);
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-.login-card__top-glow {
+.signup-card__top-glow {
   position: absolute;
   top: -1px;
   left: 20%;
@@ -40,12 +42,12 @@
 }
 
 /* logo */
-.login-logo {
+.signup-logo {
   text-align: center;
   margin-bottom: 32px;
 }
 
-.login-logo__plane {
+.signup-logo__plane {
   display: block;
   font-size: 2.6rem;
   margin-bottom: 8px;
@@ -57,7 +59,7 @@
   50%       { transform: translateY(-8px) rotate(5deg); }
 }
 
-.login-logo__brand {
+.signup-logo__brand {
   font-family: var(--font-display);
   font-size: 2.4rem;
   font-weight: 900;
@@ -69,7 +71,7 @@
   line-height: 1;
 }
 
-.login-logo__sub {
+.signup-logo__sub {
   font-family: var(--font-mono);
   color: var(--text-muted);
   font-size: 0.72rem;
@@ -104,6 +106,7 @@
   font-size: 1rem;
   font-weight: 600;
   transition: border-color var(--transition), box-shadow var(--transition);
+  box-sizing: border-box;
 }
 
 .form-input:focus {
@@ -163,8 +166,8 @@
   line-height: 1.4;
 }
 
-/* launch button */
-.btn-launch {
+/* signup button */
+.btn-signup {
   width: 100%;
   padding: 14px;
   background: linear-gradient(135deg, var(--accent), var(--accent2));
@@ -177,18 +180,21 @@
   margin-top: 8px;
   box-shadow: var(--glow-red);
   transition: transform 0.15s, box-shadow 0.15s;
+  border: none;
+  cursor: pointer;
 }
 
-.btn-launch:hover {
+.btn-signup:hover {
   transform: translateY(-2px);
   box-shadow: 0 0 30px rgba(230, 57, 70, 0.7);
 }
 
-.btn-launch:active {
+.btn-signup:active {
   transform: translateY(0);
 }
 
-.btn-forgot {
+/* back button */
+.btn-back {
   width: 100%;
   padding: 10px;
   margin-top: 8px;
@@ -204,61 +210,31 @@
   transition: border-color var(--transition), color var(--transition);
 }
 
-.btn-forgot:hover {
+.btn-back:hover {
   border-color: var(--accent);
   color: var(--accent);
-}
-
-.btn-signup-link {
-  width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  color: var(--text-muted);
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: border-color var(--transition), color var(--transition);
-}
-
-.btn-signup-link:hover {
-  border-color: var(--green);
-  color: var(--green);
-}
-
-/* note */
-.login-note {
-  text-align: center;
-  margin-top: 20px;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
 }
 
 /* MOBILE RESPONSIVE STYLES */
 
 /* Tablets and below */
 @media (max-width: 768px) {
-  .login-card {
+  .signup-card {
     width: 90%;
     max-width: 420px;
     padding: 40px 32px;
   }
 
-  .login-logo__plane {
+  .signup-logo__plane {
     font-size: 2.2rem;
   }
 
-  .login-logo__brand {
+  .signup-logo__brand {
     font-size: 2rem;
     letter-spacing: 2px;
   }
 
-  .login-logo__sub {
+  .signup-logo__sub {
     font-size: 0.65rem;
     letter-spacing: 4px;
   }
@@ -266,34 +242,35 @@
 
 /* Mobile phones - medium */
 @media (max-width: 600px) {
-  .login-screen {
+  .signup-screen {
     padding: 16px;
     justify-content: flex-start;
     padding-top: 40px;
   }
 
-  .login-card {
+  .signup-card {
     width: 100%;
     max-width: 100%;
     padding: 32px 24px;
     border-radius: var(--radius-md);
+    max-height: 85vh;
   }
 
-  .login-logo {
+  .signup-logo {
     margin-bottom: 20px;
   }
 
-  .login-logo__plane {
+  .signup-logo__plane {
     font-size: 1.8rem;
     margin-bottom: 6px;
   }
 
-  .login-logo__brand {
+  .signup-logo__brand {
     font-size: 1.6rem;
     letter-spacing: 1px;
   }
 
-  .login-logo__sub {
+  .signup-logo__sub {
     font-size: 0.6rem;
     letter-spacing: 2px;
     margin-top: 4px;
@@ -333,39 +310,35 @@
     margin-top: 4px;
   }
 
-  .btn-launch,
-  .btn-forgot {
+  .btn-signup,
+  .btn-back {
     padding: 12px;
     font-size: 0.85rem;
     margin-top: 6px;
-  }
-
-  .login-note {
-    margin-top: 16px;
-    font-size: 0.7rem;
   }
 }
 
 /* Small phones */
 @media (max-width: 480px) {
-  .login-screen {
+  .signup-screen {
     padding: 12px;
     padding-top: 30px;
   }
 
-  .login-card {
+  .signup-card {
     padding: 24px 16px;
+    max-height: 85vh;
   }
 
-  .login-logo {
+  .signup-logo {
     margin-bottom: 16px;
   }
 
-  .login-logo__plane {
+  .signup-logo__plane {
     font-size: 1.6rem;
   }
 
-  .login-logo__brand {
+  .signup-logo__brand {
     font-size: 1.4rem;
   }
 

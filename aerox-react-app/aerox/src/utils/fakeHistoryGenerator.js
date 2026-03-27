@@ -62,7 +62,7 @@ export function createNewUserSave(username) {
 
   return {
     user: username,
-    balance: 1000, // New user starts with 1000, no wins/losses yet
+    balance: 0, // New user starts with 0 balance
     history: fakeHistory,
     stats: {
       wins: 0,

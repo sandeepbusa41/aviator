@@ -1,26 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './LoginPage.css';
-import { validatePassword, verifyLogin, saveCredentials } from '../../utils/auth';
+import { loadAllCredentials } from '../../utils/auth';
 
-function LoginPage({ onLogin, onForgotPassword }) {
+function LoginPage({ onLogin, onForgotPassword, onSignup }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [passwordChecks, setPasswordChecks] = useState({
-    hasLength: false,
-    hasNumber: false,
-    hasLetter: false
-  });
-
-  // Update password validation checks as user types
-  useEffect(() => {
-    if (password) {
-      const validation = validatePassword(password);
-      setPasswordChecks(validation.checks);
-    } else {
-      setPasswordChecks({ hasLength: false, hasNumber: false, hasLetter: false });
-    }
-  }, [password]);
 
   const handleSubmit = () => {
     if (!username.trim()) {
@@ -28,17 +13,21 @@ function LoginPage({ onLogin, onForgotPassword }) {
       return;
     }
 
-    // Verify login credentials
-    const verification = verifyLogin(username.trim(), password);
-
-    if (!verification.success) {
-      setError(verification.message);
+    if (!password) {
+      setError('Enter your password');
       return;
     }
 
-    // For first-time users, save the credentials before login
-    if (verification.type === 'new_user') {
-      saveCredentials(username.trim(), password);
+    // Verify login credentials
+    const creds = loadAllCredentials();
+    if (!creds.hasOwnProperty(username.trim())) {
+      setError('Pilot name not found');
+      return;
+    }
+
+    if (creds[username.trim()] !== password) {
+      setError('Invalid password for this pilot');
+      return;
     }
 
     setError('');
@@ -88,39 +77,6 @@ function LoginPage({ onLogin, onForgotPassword }) {
             onKeyDown={handleKeyDown}
           />
 
-          {/* Password requirements checklist */}
-          {password && (
-            <>
-              <div className="password-requirements">
-                <div className={`requirement ${passwordChecks.hasLength ? 'requirement--met' : ''}`}>
-                  <span className="requirement__icon">{passwordChecks.hasLength ? '✓' : '✗'}</span>
-                  <span className="requirement__text">4+ characters</span>
-                </div>
-                <div className={`requirement ${passwordChecks.hasNumber ? 'requirement--met' : ''}`}>
-                  <span className="requirement__icon">{passwordChecks.hasNumber ? '✓' : '✗'}</span>
-                  <span className="requirement__text">1 number</span>
-                </div>
-                <div className={`requirement ${passwordChecks.hasLetter ? 'requirement--met' : ''}`}>
-                  <span className="requirement__icon">{passwordChecks.hasLetter ? '✓' : '✗'}</span>
-                  <span className="requirement__text">1 letter</span>
-                </div>
-              </div>
-
-              {/* Show combined error message if password is invalid */}
-              {!passwordChecks.hasLength || !passwordChecks.hasNumber || !passwordChecks.hasLetter ? (
-                <div className="password-error-summary">
-                  Password must have: {
-                    [
-                      !passwordChecks.hasLength && '4+ characters',
-                      !passwordChecks.hasNumber && '1 number',
-                      !passwordChecks.hasLetter && '1 letter'
-                    ].filter(Boolean).join(', ')
-                  }
-                </div>
-              ) : null}
-            </>
-          )}
-
           {error && <p className="form-error">{error}</p>}
         </div>
 
@@ -130,6 +86,10 @@ function LoginPage({ onLogin, onForgotPassword }) {
 
         <button className="btn-forgot" onClick={onForgotPassword}>
           Forgot Password?
+        </button>
+
+        <button className="btn-signup-link" onClick={onSignup}>
+          Create Account
         </button>
       </div>
     </div>
