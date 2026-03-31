@@ -7,7 +7,7 @@ const STARTING_BALANCE = 10000;
 const COUNTDOWN_MS = 5000;
 const TICK_MS = 50;
 
-export function useGameEngine(initialSave) {
+export function useGameEngine(initialSave, externalBalance) {
 
   const [balance,setBalance] = useState(initialSave?.balance ?? STARTING_BALANCE);
   const [roundHistory,setRoundHistory] = useState(initialSave?.history ?? []);
@@ -51,6 +51,13 @@ export function useGameEngine(initialSave) {
   useEffect(()=>{rAutoEnabled.current=autoEnabled},[autoEnabled])
   useEffect(()=>{rAutoCashAt.current=autoCashAt},[autoCashAt])
   useEffect(()=>{rMultiplier.current=multiplier},[multiplier])
+
+  // Sync external balance (e.g., after deposit) to internal balance
+  useEffect(()=>{
+    if(externalBalance !== undefined && externalBalance !== balance) {
+      setBalance(externalBalance)
+    }
+  },[externalBalance])
 
   const pushToast = useCallback((msg,type)=>{
     const id=Date.now()+Math.random()

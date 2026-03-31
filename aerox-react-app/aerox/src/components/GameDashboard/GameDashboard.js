@@ -16,9 +16,9 @@ import SettingsModal from '../SettingsModal/SettingsModal';
 import { formatCoins } from '../../utils/gameUtils';
 
 function GameDashboard({ user, save, onLogout }) {
-  const engine = useGameEngine(save);
+  const [balance, setBalance] = useState(save?.balance ?? 0);
+  const engine = useGameEngine(save, balance);
   const [mode, setMode] = useState('game'); // 'game', 'deposit', 'withdraw', 'transactions'
-  const [balance, setBalance] = useState(engine.balance);
   const [toasts, setToasts] = useState([]);
   const [transactionRefresh, setTransactionRefresh] = useState(0); // Trigger to refresh transactions
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -45,8 +45,6 @@ function GameDashboard({ user, save, onLogout }) {
   useEffect(() => {
     setBalance(engine.balance);
   }, [engine.balance]);
-
-  /* persist user tag into save - USE STATE BALANCE, NOT ENGINE BALANCE */
   useEffect(() => {
     saveToStorage({
       user,
@@ -219,7 +217,7 @@ function GameDashboard({ user, save, onLogout }) {
         <aside className="dashboard__side">
           <BetPanel
             phase={engine.phase}
-            balance={engine.balance}
+            balance={balance}
             betPlaced={engine.betPlaced}
             betAmount={engine.betAmount}
             cashedOut={engine.cashedOut}
